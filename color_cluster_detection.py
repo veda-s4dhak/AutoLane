@@ -4,6 +4,14 @@ from PIL import Image as PIL_image
 
 #=======================================================================================================================
 
+def create_dir(image_number):
+    directory = '/Users/arnavgupta/PycharmProjects/LeagueOfLegendsAI/{}'.format(image_number)
+
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        
+#=======================================================================================================================
+
 def get_screenshots(num_of_screenshots,directory,file_name):
     for i in range(1, num_of_screenshots+1):
         im = pyscreenshot.grab()
@@ -120,10 +128,28 @@ def output_clusters_to_image(im,x_clusters,y_clusters):
 
 #=======================================================================================================================
 
+def get_minion_area(im, cluster_x, cluster_y, size = 75):
+
+    if type(cluster_x) == int:
+        cluster_x = [cluster_x]
+        cluster_y = [cluster_y]
+
+    for i in xrange(0, len(cluster_x)):
+        try:
+            newImage = im.crop((cluster_x[i], cluster_y[i], cluster_x[i] + size, cluster_y[i] + size))
+            newImage.save('/Users/arnavgupta/PycharmProjects/LeagueOfLegendsAI/{}/minion_{}.png'.format(im_number, i + 1),
+                          'PNG')
+        except:
+            pass
+
+#=======================================================================================================================
+
 if __name__ == '__main__':
     #get_screenshots(5,r'C:\\Users\\Veda Sadhak\\Google Drive\\A Different Time\\AI Projects\\Minion_Detection\\Image_Set\\',r'league')
-
-    im = PIL_image.open(r'C:\Users\Veda Sadhak\Google Drive\A Different Time\AI Projects\Minion_Detection\Image_Set\league104.png')
+    im_number = 104
+    create_dir(im_number)
+    
+    im = PIL_image.open(r'C:\Users\Veda Sadhak\Google Drive\A Different Time\AI Projects\Minion_Detection\Image_Set\league{}.png'.format(im_number)
 
     print("Finding Red Pixels...")
 
