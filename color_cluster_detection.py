@@ -220,7 +220,7 @@ if __name__ == '__main__':
     im_number = 104
     create_dir(im_number)
     
-    im = PIL_image.open(r'C:\Users\Veda Sadhak\Google Drive\A Different Time\AI Projects\Minion_Detection\Image_Set\league{}.png'.format(im_number)
+    im = PIL_image.open(r'C:\Users\Veda Sadhak\Google Drive\A Different Time\AI Projects\Minion_Detection\Image_Set\league{}.png'.format(im_number))
 
     print("Finding Red Pixels...")
 
@@ -265,11 +265,25 @@ if __name__ == '__main__':
 
     print("Finding upper left pixel of each cluster...")
 
-    for cluster_num in range(0,len(fil_x_clusters)):
-        upper_left_pix_x , upper_left_pix_y = find_upper_left_pixel(fil_x_clusters[cluster_num],fil_y_clusters[cluster_num])
-        print("Cluster Num: {} | X: {} | Y: {}".format( cluster_num,upper_left_pix_x,upper_left_pix_y ))
+    upper_left_pix_x_list = []
+    upper_left_pix_y_list = []
+
+    for cluster_num in range(0, len(fil_x_clusters)):
+        upper_left_pix_x, upper_left_pix_y = find_upper_left_pixel(fil_x_clusters[cluster_num],fil_y_clusters[cluster_num])
+        upper_left_pix_x_list.append(upper_left_pix_x)
+        upper_left_pix_y_list.append(upper_left_pix_y)
+        print("Cluster Num: {} | X: {} | Y: {}".format(cluster_num, upper_left_pix_x, upper_left_pix_y))
 
     print("Done finding upper left pixel of each cluster...")
+    print()
+
+    # ========================================================================
+
+    print("Creating minion images...")
+
+    get_minion_area(im, upper_left_pix_x_list, upper_left_pix_y_list, size=75)
+
+    print("Done creating minion images...")
     print()
 
     # ========================================================================
