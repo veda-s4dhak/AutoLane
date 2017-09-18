@@ -188,3 +188,4 @@ if __name__ == '__main__':
     lr,lg,lb = compute_max_pool( feature_map_r,feature_map_g,feature_map_b )
 
     print(lr)
+    print(lr)
