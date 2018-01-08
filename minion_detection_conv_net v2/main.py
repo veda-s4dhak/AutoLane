@@ -32,7 +32,7 @@ if __name__ == '__main__':
     epochs = 100
     
     # Specifies batch size (number of images per batch)
-    bSize = 10
+    bSize = 2
     
     # Specifies number of frames per image
     frameBatchSize = 6
@@ -268,6 +268,8 @@ if __name__ == '__main__':
                         InputBatch[1].append(nn_input)
                         
                         
+                        
+                        
                         #print(nn_input)
                         
 
@@ -277,7 +279,9 @@ if __name__ == '__main__':
             
             # gradient_val is the learning rate
             #A_c, NN_c, CF, E, OC, var_grad, CW = minion_neural_network.execute(InputBatch, gradient_val)
-            A_c, NN_c, OC, var_grad, CF, CW = minion_neural_network.execute(InputBatch, gradient_val)
+           
+            A_c, NN_c, OC, CF, CW = minion_neural_network.execute(InputBatch, gradient_val)
+            
             # calculates accuracy line 233-241
             '''if OC == True:#OC[0] == True:
                 accuracy_tot = accuracy_tot + (1 == OC)
@@ -319,7 +323,7 @@ if __name__ == '__main__':
 
                     # Printing Network Data
             # print("Actual Label: {} , NN Label: {},  Is Prediction Correct? {}, Error: {}, Cost Function: {}, Accuracy: {}, Gradient Value: {}".format('%.5f' % A_c, '%.5f' % NN_c, OC, '%.2E' % E, '%.2E' % CF, '%.5F' % accuracy, '%.2E' % gradient_val))
-            print("Actual Label: {} , NN Label: {},  Is Prediction Correct? {}, Cost Function: {}, Accuracy: {}, Gradient Value: {}".format('%.5f' % A_c, '%.5f' % NN_c, OC, '%.2E' % CF, '%.5F' % accuracy, '%.2E' % gradient_val))
+            print("Cost Function: ", CF)
                     #print("CW: {}".format(CW))
 
                     # curr_grad = var_grad

@@ -2,6 +2,7 @@
 import tensorflow as tf
 import os
 import numpy as np
+import copy
 
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2' # Removing warnings
 
@@ -86,11 +87,11 @@ def check_nn_config(layers,conv_layers,fc_layers,conv_z_matrix,fil_size_matrix,
 def get_output_shape(layers,conv_layers,fc_layers,conv_z_matrix,fil_size_matrix,
                     pooling_matrix,stride_matrix,pool_stride_matrix,pool_type,
                     activation_type,input_x,input_y,input_z):
-
+    
     for layer in range(0, conv_layers):
 
         if layer == 0:
-            current_parameters = [1, input_x, input_y, input_z]
+            current_parameters = [None, input_x, input_y, input_z]
             channel_input = input_z
         else:
             channel_input = conv_z_matrix[layer - 1]
@@ -100,11 +101,11 @@ def get_output_shape(layers,conv_layers,fc_layers,conv_z_matrix,fil_size_matrix,
 
         convolution_x = int(np.floor((current_parameters[1] - weights[0]) / stride_matrix[layer][0]) + 1)
         convolution_y = int(np.floor((current_parameters[2] - weights[1]) / stride_matrix[layer][1]) + 1)
-        conv = [1, convolution_x, convolution_y, conv_z_matrix[layer]]
+        conv = [None, convolution_x, convolution_y, conv_z_matrix[layer]]
 
         pool_x = int(np.floor((conv[1] - pooling_matrix[layer][0]) / pool_stride_matrix[layer][0]) + 1)
         pool_y = int(np.floor((conv[2] - pooling_matrix[layer][1]) / pool_stride_matrix[layer][1]) + 1)
-        pool = [1, pool_x, pool_y, conv_z_matrix[layer]]
+        pool = [None, pool_x, pool_y, conv_z_matrix[layer]]
 
         current_parameters = pool
 
@@ -131,12 +132,13 @@ class conv_net():
         self.pool_stride_sizes = pool_stride_matrix
         self.pool_type = pool_type
         self.activation_type = activation_type
-
-        self.input_pixels = tf.placeholder(tf.float32,shape=[None, input_x,input_y,input_z],name='input_pixels') # This is the input that will be fed externally
+        
+        
+        self.input_pixels = tf.placeholder(tf.float32,shape=(None, input_x,input_y,input_z),name='input_pixels') # This is the input that will be fed externally
         self.input_data = tf.reshape(self.input_pixels,[-1,input_x,input_y,input_z]) # Reshaping the input
         
         # Placeholder for learning rate
-        self.gradient_val = tf.placeholder(tf.float32,shape=[])
+        self.gradient_val = tf.placeholder(tf.float32, shape=())
 
         self.current_layer_shape = []
         self.current_parameters = []
@@ -183,20 +185,20 @@ class conv_net():
             print("CPl: {}".format(self.current_pool[layer]))
 
 
-        self.ACTUAL_OUTPUT = tf.placeholder(tf.float32, shape=output_shape, name='ACTUAL_OUTPUT')
-        self.NN_OUTPUT = tf.reshape(self.current_parameters[self.num_conv_layers],shape=[-1])
-        self.AC_OUTPUT = tf.reshape(self.ACTUAL_OUTPUT,shape=[-1])
-        self.AC_c = tf.reshape(self.AC_OUTPUT,shape=[])
+        self.ACTUAL_OUTPUT = tf.placeholder(tf.float32, shape=(None,), name='ACTUAL_OUTPUT')
+        self.NN_OUTPUT = tf.sigmoid(tf.reshape(self.current_parameters[self.num_conv_layers],shape=[-1,1]))
+        self.AC_OUTPUT = tf.reshape(self.ACTUAL_OUTPUT,shape=[-1,1])
+        self.AC_c = tf.reshape(self.AC_OUTPUT,shape=[-1,1])
         #self.AC_pos_h, self.AC_pos_w, self.AC_pos_x, self.AC_pos_y, self.AC_p, self.AC_c = tf.split(self.AC_OUTPUT, 6, 0)
         #self.NN_pos_h, self.NN_pos_w, self.NN_pos_x, self.NN_pos_y, self.NN_p, self.NN_c_unformatted = tf.split(self.NN_OUTPUT, 6, 0)
 
         #self.AC_c = tf.round(self.AC_c
-        zero_const = tf.constant(0, shape=[], dtype=tf.float32)
+        #zero_const = tf.constant(0, shape=[], dtype=tf.float32)
         #one_const = tf.constant(1, shape=[], dtype=tf.float32)
         #cond_const = tf.constant(0.5,shape=[], dtype=tf.float32)
-        self.NOT_AC_c = tf.round(tf.cast(tf.equal(self.AC_c, zero_const), dtype=tf.float32))
+        #self.NOT_AC_c = tf.round(tf.cast(tf.equal(self.AC_c, zero_const), dtype=tf.float32))
         #self.NN_c = tf.reshape(self.NN_c_unformatted,shape=[])
-        self.NN_c = tf.reshape(self.NN_OUTPUT,shape=[])
+        self.NN_c = tf.reshape(self.NN_OUTPUT,shape=[-1,1])
 
         # def set_zero(): return zero_const#tf.multiply(self.NN_c,zero_const)
         # def set_one(): return one_const #tf.floor(tf.add(self.NN_c,one_const))
@@ -224,29 +226,39 @@ class conv_net():
         #size_err_b = tf.multiply(self.AC_c, size_err_a)
         #self.size_err_c = tf.multiply(alpha_size, size_err_b)
 
-        alpha_class = tf.constant(50, shape=[], dtype=tf.float32)
+        '''alpha_class = tf.constant(50, shape=[], dtype=tf.float32)
         alpha_no_obj = tf.constant(50, shape=[], dtype=tf.float32)
         class_err_a1 = tf.square(tf.subtract(self.NN_c, self.AC_c))
         self.class_err_b1 = tf.multiply(alpha_class,tf.multiply(self.AC_c,class_err_a1))
         self.class_err_b2 = tf.multiply(alpha_no_obj,tf.multiply(self.NOT_AC_c,class_err_a1))
-        self.class_err_c = tf.add(self.class_err_b1,self.class_err_b2)
+        self.class_err_c = tf.add(self.class_err_b1,self.class_err_b2)'''
 
         #alpha_prob = tf.constant(1, shape=[], dtype=tf.float32)
         #prob_err_a = tf.square(tf.subtract(self.NN_p, self.AC_p))
         #self.prob_err_c = tf.multiply(alpha_prob,tf.multiply(self.AC_p, prob_err_a))
 
-        self.var_gradient = tf.gradients(self.class_err_c,self.NN_c)
+        #self.var_gradient = tf.gradients(self.class_err_c,self.NN_c)
         # ======================================================================================= #
 
         #self.cost_function = tf.add(self.box_pos_err,tf.add(self.box_size_err,tf.add(self.box_class_err,self.box_prob_err)))\
-        self.num_iterations = tf.add(self.num_iterations,tf.Variable(1,dtype=tf.float32))
+        #self.num_iterations = tf.add(self.num_iterations,tf.Variable(1,dtype=tf.float32))
         #self.error = tf.divide(tf.add(tf.multiply(self.AC_c,tf.log(self.NN_c)),tf.multiply(tf.subtract(one_const,self.AC_c),tf.log(tf.subtract(one_const,self.NN_c)))),self.num_iterations)
         #self.class_err_c#tf.add(self.class_err_c,tf.add(self.prob_err_c,tf.add(self.pos_err_c, self.size_err_c))) #tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=[self.AC_c],logits=[self.NN_c]))
-        # self.cost_function_out = tf.subtract(self.cost_function_in,self.error)      
-        self.cost_function_out = -tf.reduce_sum(self.AC_c*tf.log(self.NN_c) + (1-self.AC_c)*tf.log(1-self.NN_c))     
+        # self.cost_function_out = tf.subtract(self.cost_function_in,self.error)     
         
+        one = tf.constant(1, dtype = tf.float32)
+        AccVar = tf.Variable(self.AC_c, dtype = tf.float32, shape=[-1,1])
+        NNcVar = tf.Variable(self.NN_c, dtype = tf.float32, shape=[-1,1])
+        
+        partA = tf.multiply(AccVar, tf.log(NNcVar))
+        partB = tf.multiply(tf.subtract(one, AccVar), tf.log(tf.subtract(one, NNcVar)))
+        
+        self.cost_function_out = tf.add(partA, partB)  
+        
+    
+        # self.cost_function_out = tf.reduce_sum(tf.squared_difference(self.AC_c, self.NN_c))
         self.train_step = tf.train.AdamOptimizer(self.gradient_val).minimize(self.cost_function_out)
-        self.gradients = tf.train.AdamOptimizer(self.gradient_val).compute_gradients(self.cost_function_out)
+        #self.gradients = tf.train.AdamOptimizer(self.gradient_val).compute_gradients(self.cost_function_out)
         self.output_correct = tf.equal(self.AC_c,self.NN_c)
 
         self.sess = tf.InteractiveSession()
@@ -266,41 +278,58 @@ class conv_net():
         
     '''
     #def execute(self, pixels, actual_output, gradient_val, cost_func_acm):
-    def execute(self, inpBatch, gradient_val):
+    def execute(self, inpBatch, grad_val):
         
         # executes the network
         #A_c, NN_c, CF, BPE, BSE, BCE, BPRE, OC, A_pos_x, A_pos_y, NN_pos_x, NN_pox_y, G, NN_c_unformatted, var_grad = self.sess.run\
         #objList1 = [self.AC_c, self.NN_c, self.cost_function_out, self.error, self.output_correct,self.gradients, self.current_weights[6]]
         #print('objList1')
         '''for i in range(len(objList1)):
-            print('object: ', objList1[i], ' : ', objList1[i] is None)'''
-        '''fdict={self.input_pixels: pixels, self.AC_OUTPUT: actual_output, self.gradient_val: gradient_val, self.cost_function_in: cost_func_acm}
-        print('feedDict: ', fdict)'''
+        print('object: ', objList1[i], ' : ', objList1[i] is None)'''
+        
+        print('Number of data feeded into net: ', len(inpBatch[0]))
+        #print('Grad value: ', type(grad_val))
+        #l =  [self.AC_c, self.NN_c, self.output_correct, self.gradients, self.cost_function_out]
+        '''for i in l:
+            print(tf.shape(l))'''
+        
+        # fdict= [inpBatch[0], inpBatch[1]]
+        inpB = copy.deepcopy(inpBatch)
+        xs = np.array(inpB[0]).astype(np.float32)
+        ys = (np.array(inpB[1]).astype(np.float32)).reshape((-1,))
+        
+        print('xs: ', np.shape(xs))
+        print('ys: ',np.shape(ys))
+        
+        print(xs)
+        print(ys)
+        # for i in fdict:
+        
         # print('objList2')
         #objList2 = [pixels, actual_output, gradient_val, cost_func_acm]
         '''for i in range(len(objList2)):
-            print('object : ', objList2[i] is None)'''
+            print('object : ', objList2[i] is None)
+        '''
         
         # current_weights[6] has none values
         # Runs one step of optimization
-        A_c, NNet_c, OC, G, CF= self.sess.run \
+        A_c, NN_c, OC, CF= self.sess.run \
         (
-            [self.AC_c, self.NN_c,  self.output_correct, self.gradients, self.cost_function_out],
-            feed_dict={self.input_pixels: inpBatch[0], self.AC_OUTPUT: inpBatch[1], self.gradient_val: gradient_val}
+            [self.AC_c, self.NN_c, self.output_correct, self.cost_function_out],
+            feed_dict={self.input_pixels:xs, self.ACTUAL_OUTPUT:ys, self.gradient_val:np.array(grad_val).astype(np.float32)}
 
             # [self.AC_c, self.NN_c, self.cost_function, self.pos_err_c, self.size_err_c, self.class_err_c, self.prob_err_c, self.output_correct,
             #  self.AC_pos_x, self.AC_pos_y, self.NN_pos_x, self.NN_pos_y, self.gradients,self.NN_c_unformatted,self.gradients],
             # feed_dict={self.input_pixels: pixels, self.AC_OUTPUT: actual_output, self.gradient_val: gradient_val}
         )
+        
+        print('Correct Answer: ', A_c)
+        print('Predictions: ', NN_c)
+        
         CW =  self.current_weights[6]
-        return A_c, NNet_c, OC, G, CF, CW
+        return A_c, NN_c, OC, CF, CW
         #return A_c, NN_c, BPE, BSE, BCE, BPRE, CF, OC, A_pos_x, A_pos_y, NN_pos_x, NN_pox_y, G, NN_c_unformatted, var_grad
         
-    '''
-    Class destructor
-    '''
-    def __del__(self):
-        self.sess.close()
 
 # ==================================================== NN OPERATIONS ==================================================== #
 
