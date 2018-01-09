@@ -4,6 +4,10 @@
 from PIL import Image
 import os
 import tensorflow as tf
+import numpy as np
+import math
+import copy as cp
+import random as rand
 
 # ================================== LOCAL IMPORTS ================================== #
 
@@ -20,6 +24,16 @@ def valid_type(var):
     else:
         return False
 
+def shuffleTwoLists(l1, l2):
+    
+    lA = cp.deepcopy(l1)
+    lB = cp.deepcopy(l2)
+    c = list(zip(lA,lB))
+    rand.shuffle(c)
+    a, b = zip(*c)
+    return a,b
+    
+    
 if __name__ == '__main__':
 
     # mode = tf.placeholder(tf.string,shape=[3,3,3], name='mode')
@@ -31,11 +45,11 @@ if __name__ == '__main__':
     # Specifies number of optimization steps
     epochs = 100
     
-    # Specifies batch size (number of images per batch)
-    bSize = 2
+    # Specifies number of frames to extract from ds for training
+    num_frames = 30
     
-    # Specifies number of frames per image
-    frameBatchSize = 6
+    # Specifies number of frames in each batch to feed int nn
+    batch_size = 10
     
     # Specifies the neural network architecture: from line 31 to 60
     frame_size = [128,128]
@@ -79,7 +93,7 @@ if __name__ == '__main__':
     image_w, image_l, image_h = p.get_image_size(frames[0][0])
     
     # Line 72 to 84: checks if neural network is valid
-    valid_network = nn.check_nn_config(layers=num_layers,
+    '''valid_network = nn.check_nn_config(layers=num_layers,
                                        conv_layers=num_conv_layers,
                                        fc_layers = 0,
                                        conv_z_matrix=z_matrix,
@@ -91,15 +105,15 @@ if __name__ == '__main__':
                                        activation_type=a_type,
                                        input_x=image_w,
                                        input_y=image_l,
-                                       input_z=image_h)
-
+                                       input_z=image_h)'''
+    valid_network = 1
     # Prints if network is valid
-    print("\nNetwork Valid? == {}".format(valid_network))
+    #print("\nNetwork Valid? == {}".format(valid_network))
 
     if valid_network == 1:
         
         # Line 92 to 104: determines output shape of neural network
-        output_shape = nn.get_output_shape(layers=num_layers,
+        '''output_shape = nn.get_output_shape(layers=num_layers,
                                         conv_layers=num_conv_layers,
                                         fc_layers = num_fc_layers,
                                         conv_z_matrix=z_matrix,
@@ -111,7 +125,7 @@ if __name__ == '__main__':
                                         activation_type=a_type,
                                         input_x=image_w,
                                         input_y=image_l,
-                                        input_z=image_h)
+                                        input_z=image_h)'''
         
         # Line 107-120: initializes the neural network 
         minion_neural_network = nn.conv_net(layers=num_layers,
@@ -127,7 +141,7 @@ if __name__ == '__main__':
                                             input_x=image_w,
                                             input_y=image_l,
                                             input_z=image_h,
-                                            output_shape=output_shape)
+                                            output_shape=())
 
 
         print("\n--------------------- Execution Start ---------------------\n")
@@ -148,16 +162,42 @@ if __name__ == '__main__':
         print('Total number of images: ', num_images)
         
         # learning rate
-        gradient_val = 1e-12
+        gradient_val = 0.5
         
         # cost function
         # CF = 0
         
+        # Extracts num_frames frames from image data set
+        framesInput = ds.get_frames(num_frames)
+        finalBatchSize = num_frames % batch_size
+        NumBatches = math.ceil(num_frames/batch_size)
+        
+        print('Testing frame data:')
+        print('Testing if two frames are the same:')
+        f1 = np.array(framesInput[0][0]).astype(np.float32)
+        f2 = np.array(framesInput[0][1]).astype(np.float32)
+        print(np.sum(np.sum(np.sum(f1-f2))))
+        
+        
+        # Shuffles the frame list and stores in suffledFrames
+        shuffledFrames = []
+        a,b = shuffleTwoLists(framesInput[0], framesInput[1])
+        shuffledFrames.append(a)
+        shuffledFrames.append(b)
+        
+                
+        print('Total number of frames: ', len(framesInput[0]))
+        # Index of current batch's first element in framesInput
+        batchInd = 0
+        
+        # Initializes curr batch size
+        currBatchSize = batch_size
         
         # quits when all images processed and accuracy reached 95%
         # while (images_processed < num_images) or (accuracy < 0.95):
         #while (images_processed < num_images):
         for i in range(epochs):
+            print('Epoch: ', i)
             
             # Line 148 - 153: getting the next image in the data set
             '''print("Getting new image.")
@@ -179,109 +219,37 @@ if __name__ == '__main__':
             # Separates image into frames; separates image into grid
             frames, num_frames_x, num_frames_y = p.get_frames(image, frame_size, frame_stride_size)'''
             
-            # Gets current batch
-            # Structure of each element in batch list: [Images[i], fullImageDim[i], imageBoundData[i], frameData[i]]
-            # Structure of each element in fullImageDim: [full_image_w, full_image_l, full_image_h]
-            # Structure of each element in imageBoundData: img_data
-            # Structure of each element in frameData: [frames, num_frames_x, num_frames_y]
-            batch = ds.get_image_batch(batch_size=bSize)
+            # Computes size of final batch
             
-            # quits when accruacy is not 1 and greater than 95% or no data processed
-            # while (accuracy == 1.0) or ((accuracy < 0.95) and (data_found_flag == 1)):
-            # Gets frameBatchSize frames
+            # Sets current batch size 
+            if(batchInd + currBatchSize > num_frames):
+                currBatchSize = finalBatchSize
+            else:
+                currBatchSize = batch_size
+            InputBatch = []
+            InputBatch.append(shuffledFrames[0][batchInd:batchInd + currBatchSize])
+            InputBatch.append(shuffledFrames[1][batchInd:batchInd + currBatchSize])
             
-            # Initializes input batch to convnet
-            # First list contains the frames
-            # Second list contains the labels for the frames
-            InputBatch = [[],[]]
+            #print(len(InputBatch[0]))
+            #print(len(InputBatch[1]))
+            #Inp = cp.deepcopy(InputBatch)
             
-            # Generates bSizexframeBatchSize frames to be feeded into convnet
-            # Appends frame and its label to InputBatch
-            for j in range(bSize):
-                
-                # accumulates all frames/grids processed in the image
-                used_frame = []
-                
-                # true iff there we are feeding a frame that has a minion for that iteration
-                good_data_flag = False
-                
-                # initializes image data for current image
-                data_found_flag = 1
-                frames = batch[j][3][0]
-                num_frames_x = batch[j][3][1]
-                num_frames_y = batch[j][3][2]
-                img_data = batch[j][2]
-                imgDimension = batch[j][1]
-                full_image_w, full_image_l, full_image_h = imgDimension[0], imgDimension[1], imgDimension[2]
-                
-                for k in range(frameBatchSize):
-                    good_data_flag = not good_data_flag
-                
-                    # initializes data found flag to 0
-                    data_found_flag = 0
-                
-                    # finding a frame which has not been processed that has a minion
-                    if good_data_flag == True:
-                        for x in range(num_frames_x):
-                            for y in range(num_frames_y):
-                                used_flag = 0
-                                for uxy in used_frame:
-                                    if (uxy == (str(x)+str(y))):
-                                        used_flag = 1
-                                    if (used_flag == 0) and (img_data[x][y][4] == 1):
-                                        current_frame = frames[x][y]
-                                        current_frame_x = x
-                                        current_frame_y = y
-                                        data_found_flag = 1
-                                    
-                    # finding a frame which has not been processed that does not have a minion
-                    elif good_data_flag == False:
-                        for x in range(num_frames_x):
-                            for y in range(num_frames_y):
-                                used_flag = 0
-                                for uxy in used_frame:
-                                    if (uxy == (str(x)+str(y))):
-                                        used_flag = 1
-                                if (used_flag == 0) and (img_data[x][y][4] == 0):
-                                    current_frame = frames[x][y]
-                                    current_frame_x = x
-                                    current_frame_y = y
-                                    data_found_flag = 1
-                                    
-                    # processes data if frame we are looking for (has minion/not) is found; done otherwise
-                    if data_found_flag == 1:
-                    
-                        # adding frame to used frame list
-                        used_frame.append(str(current_frame_x) + str(current_frame_y))
-                        #print("{} {}".format(used_frame,(str(current_frame_x) + str(current_frame_y))))
-                    
-                        # gets pixel data of current frame
-                        pixels = p.get_pixels(current_frame)
-                    
-                        # image data contains all bounding boxes of the image
-                        # curr_frame_x,y specifies a certain frame; 5th value is class
-                        # assigns label to be feeded into nn
-                        nn_input = img_data[current_frame_x][current_frame_y][5]
-                        
-                        # Appends new data to input batch
-                        InputBatch[0].append(pixels)
-                        InputBatch[1].append(nn_input)
-                        
-                        
-                        
-                        
-                        #print(nn_input)
-                        
-
-            #A_c, NN_c, PE, SE, CE, PRE, CF, OC, A_pos_x, A_pos_y, NN_pos_x, NN_pox_y, G, NN_c_unformatted, var_grad  = minion_neural_network.execute(pixels,nn_input,gradient_val)
-            # executes neural network; feeds in pixels of that frame(has minion/not); nn_input/assigned label; learning rate; cost function from previous iteration
-            # A_c, NN_c, CF, E, OC, var_grad, CW = minion_neural_network.execute(pixels,[nn_input],gradient_val, CF)
+            A_c, NN_c, OC, CF = minion_neural_network.execute(InputBatch, gradient_val)
             
-            # gradient_val is the learning rate
-            #A_c, NN_c, CF, E, OC, var_grad, CW = minion_neural_network.execute(InputBatch, gradient_val)
-           
-            A_c, NN_c, OC, CF, CW = minion_neural_network.execute(InputBatch, gradient_val)
+            #print('Current Weights in Layer 0: ', CW[0])
+            # Sets batchInd to the index of the first element of next batch
+            batchInd = batchInd + currBatchSize
             
+            # if I'm done with all the frames then reset to starting ind
+            # Reshuffle the data list
+            if(batchInd >= num_frames):
+                batchInd = 0
+                currBatchSize = batch_size
+                shuffledFrames = []
+                a,b = shuffleTwoLists(framesInput[0], framesInput[1])
+                shuffledFrames.append(a)
+                shuffledFrames.append(b)
+                
             # calculates accuracy line 233-241
             '''if OC == True:#OC[0] == True:
                 accuracy_tot = accuracy_tot + (1 == OC)

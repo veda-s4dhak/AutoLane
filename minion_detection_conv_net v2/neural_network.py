@@ -133,6 +133,7 @@ class conv_net():
         self.pool_type = pool_type
         self.activation_type = activation_type
         
+        tf.reset_default_graph()
         
         self.input_pixels = tf.placeholder(tf.float32,shape=(None, input_x,input_y,input_z),name='input_pixels') # This is the input that will be fed externally
         self.input_data = tf.reshape(self.input_pixels,[-1,input_x,input_y,input_z]) # Reshaping the input
@@ -151,7 +152,9 @@ class conv_net():
         # self.cost_function_in = tf.placeholder(tf.float32,shape=[])#tf.Variable(0,dtype=tf.float32)
         
         # inits layers in a loop
-        for layer in range(0,self.num_conv_layers):
+        
+        
+        '''for layer in range(0,self.num_conv_layers):
 
             if layer == 0:
                 channel_input = input_z
@@ -182,11 +185,13 @@ class conv_net():
             print("CA: {}".format(self.current_activation[layer]))
             
             # Pool layer
-            print("CPl: {}".format(self.current_pool[layer]))
+            print("CPl: {}".format(self.current_pool[layer]))'''
+        
 
-
-        self.ACTUAL_OUTPUT = tf.placeholder(tf.float32, shape=(None,), name='ACTUAL_OUTPUT')
-        self.NN_OUTPUT = tf.sigmoid(tf.reshape(self.current_parameters[self.num_conv_layers],shape=[-1,1]))
+        self.ACTUAL_OUTPUT = tf.placeholder(tf.float32, shape=(None,1), name='ACTUAL_OUTPUT')
+        #self.NN_OUTPUT = tf.sigmoid(tf.reshape(self.current_parameters[self.num_conv_layers],shape=[-1,1])
+        self.NN_OUTPUT = createConvNet(self.input_data, 1, 0.25, reuse=False,
+                            is_training=True)
         self.AC_OUTPUT = tf.reshape(self.ACTUAL_OUTPUT,shape=[-1,1])
         self.AC_c = tf.reshape(self.AC_OUTPUT,shape=[-1,1])
         #self.AC_pos_h, self.AC_pos_w, self.AC_pos_x, self.AC_pos_y, self.AC_p, self.AC_c = tf.split(self.AC_OUTPUT, 6, 0)
@@ -239,24 +244,19 @@ class conv_net():
 
         #self.var_gradient = tf.gradients(self.class_err_c,self.NN_c)
         # ======================================================================================= #
-
-        #self.cost_function = tf.add(self.box_pos_err,tf.add(self.box_size_err,tf.add(self.box_class_err,self.box_prob_err)))\
-        #self.num_iterations = tf.add(self.num_iterations,tf.Variable(1,dtype=tf.float32))
-        #self.error = tf.divide(tf.add(tf.multiply(self.AC_c,tf.log(self.NN_c)),tf.multiply(tf.subtract(one_const,self.AC_c),tf.log(tf.subtract(one_const,self.NN_c)))),self.num_iterations)
-        #self.class_err_c#tf.add(self.class_err_c,tf.add(self.prob_err_c,tf.add(self.pos_err_c, self.size_err_c))) #tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=[self.AC_c],logits=[self.NN_c]))
-        # self.cost_function_out = tf.subtract(self.cost_function_in,self.error)     
+         
         
-        one = tf.constant(1, dtype = tf.float32)
-        AccVar = tf.Variable(self.AC_c, dtype = tf.float32, shape=[-1,1])
-        NNcVar = tf.Variable(self.NN_c, dtype = tf.float32, shape=[-1,1])
+        #one = tf.constant(1, dtype = tf.float32)
+        #AccVar = tf.Variable(self.AC_c, dtype=tf.float32)
+        #NNcVar = tf.Variable(self.NN_c, dtype=tf.float32)
         
-        partA = tf.multiply(AccVar, tf.log(NNcVar))
-        partB = tf.multiply(tf.subtract(one, AccVar), tf.log(tf.subtract(one, NNcVar)))
+        #partA = tf.multiply(AccVar, tf.log(NNcVar))
+        #partB = tf.multiply(tf.subtract(one, AccVar), tf.log(tf.subtract(one, NNcVar)))
         
-        self.cost_function_out = tf.add(partA, partB)  
+        #self.cost_function_out = tf.add(partA, partB)  
         
-    
-        # self.cost_function_out = tf.reduce_sum(tf.squared_difference(self.AC_c, self.NN_c))
+        self.cost_function_out = tf.reduce_mean(tf.squared_difference(self.AC_c, self.NN_c))
+        #self.cost_function_out = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=self.NN_c, labels=tf.cast(self.AC_c, dtype=tf.int32)))
         self.train_step = tf.train.AdamOptimizer(self.gradient_val).minimize(self.cost_function_out)
         #self.gradients = tf.train.AdamOptimizer(self.gradient_val).compute_gradients(self.cost_function_out)
         self.output_correct = tf.equal(self.AC_c,self.NN_c)
@@ -296,13 +296,13 @@ class conv_net():
         # fdict= [inpBatch[0], inpBatch[1]]
         inpB = copy.deepcopy(inpBatch)
         xs = np.array(inpB[0]).astype(np.float32)
-        ys = (np.array(inpB[1]).astype(np.float32)).reshape((-1,))
+        ys = (np.array(inpB[1]).astype(np.float32)).reshape((-1,1))
         
         print('xs: ', np.shape(xs))
         print('ys: ',np.shape(ys))
         
-        print(xs)
-        print(ys)
+        #print(xs)
+        #print(ys)
         # for i in fdict:
         
         # print('objList2')
@@ -326,8 +326,8 @@ class conv_net():
         print('Correct Answer: ', A_c)
         print('Predictions: ', NN_c)
         
-        CW =  self.current_weights[6]
-        return A_c, NN_c, OC, CF, CW
+        # CW =  self.current_weights[6]
+        return A_c, NN_c, OC, CF
         #return A_c, NN_c, BPE, BSE, BCE, BPRE, CF, OC, A_pos_x, A_pos_y, NN_pos_x, NN_pox_y, G, NN_c_unformatted, var_grad
         
 
@@ -368,6 +368,42 @@ def activation(parameters,activation_type = 'RELU'):
 
     return activation
 
+'''
+Source: https://github.com/aymericdamien/TensorFlow-Examples/tree/master/examples/3_NeuralNetworks
 
+'''
+def createConvNet(xData, n_classes, dropout, reuse, is_training):
+    # Define a scope for reusing the variables
+    
+    with tf.variable_scope('ConvNet', reuse=reuse):
+
+        # MNIST data input is a 1-D vector of 784 features (28*28 pixels)
+        # Reshape to match picture format [Height x Width x Channel]
+        # Tensor input become 4-D: [Batch Size, Height, Width, Channel]
+        x = tf.reshape(xData, shape=[-1, 128, 128, 3])
+
+        # Convolution Layer with 10 filters and a kernel size of 5
+        conv1 = tf.layers.conv2d(x, 10, 5, activation=tf.nn.relu)
+        # Max Pooling (down-sampling) with strides of 2 and kernel size of 2
+        conv1 = tf.layers.max_pooling2d(conv1, 2, 2)
+
+        # Convolution Layer with 10 filters and a kernel size of 3
+        conv2 = tf.layers.conv2d(conv1, 10, 5, activation=tf.nn.relu)
+        # Max Pooling (down-sampling) with strides of 2 and kernel size of 2
+        conv2 = tf.layers.max_pooling2d(conv2, 2, 2)
+
+        # Flatten the data to a 1-D vector for the fully connected layer
+        fc1 = tf.contrib.layers.flatten(conv2)
+
+        # Fully connected layer (in tf contrib folder for now)
+        fc1 = tf.layers.dense(fc1, 100)
+        # Apply Dropout (if is_training is False, dropout is not applied)
+        fc1 = tf.layers.dropout(fc1, rate=dropout, training=is_training)
+
+
+        # Output layer, class prediction
+        out = tf.sigmoid(tf.layers.dense(fc1, n_classes))
+
+    return out
 
 

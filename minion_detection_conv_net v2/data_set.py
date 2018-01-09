@@ -46,7 +46,10 @@ global frameData
 frameData = list()
 
 # Img data set of lists containing all data above
-# Structure of each element in list: [Images[i], fullImageDim[i], imageBoundData[i], frameData[i]]
+# Structure of each element in imgDataSet: [Images[i], fullImageDim[i], imageBoundData[i], frameData[i]]
+# Structure of each element in fullImageDim: [full_image_w, full_image_l, full_image_h]
+# Structure of each element in imageBoundData: img_data
+# Structure of each element in frameData: [frames, num_frames_x, num_frames_y]
 global imgDataSet
 imgDataSet = list()
 
@@ -92,8 +95,99 @@ def get_image_batch(batch_size = 1):
     
     # Gets cloned batch of size batch_size
     return(list(random.sample(imgDataSet, batch_size)))
+
+
+#------------------------
     
-#-----------------------
+
+'''
+Extracts num_frames frames from imgDataSet
+Frames' class labels will be balanced. 
+    
+num_frames: number of frames to extract from imgDataSet
+'''    
+def get_frames(num_frames):
+    
+    InputBatch = [[],[]]
+    frameCount = 0
+    for j in range(numImagesTotal):
+                
+        # accumulates all frames/grids processed in the image
+        used_frame = []
+                
+        # true iff there we are feeding a frame that has a minion for that iteration
+        good_data_flag = False
+                
+        # initializes image data for current image
+        data_found_flag = 1
+        frames = imgDataSet[j][3][0]
+        num_frames_x = imgDataSet[j][3][1]
+        num_frames_y = imgDataSet[j][3][2]
+        img_data = imgDataSet[j][2]
+        imgDimension = imgDataSet[j][1]
+        full_image_w, full_image_l, full_image_h = imgDimension[0], imgDimension[1], imgDimension[2]
+        
+        while(data_found_flag):
+            good_data_flag = not good_data_flag
+            
+            # initializes data found flag to 0
+            data_found_flag = 0
+            
+            # finding a frame which has not been processed that has a minion
+            if good_data_flag == True:
+                for x in range(num_frames_x):
+                    for y in range(num_frames_y):
+                        used_flag = 0
+                        for uxy in used_frame:
+                            if (uxy == (str(x)+str(y))):
+                                used_flag = 1
+                        if (used_flag == 0) and (img_data[x][y][4] == 1) and (not data_found_flag):
+                            current_frame = frames[x][y]
+                            current_frame_x = x
+                            current_frame_y = y
+                            data_found_flag = 1
+                                
+                # finding a frame which has not been processed that does not have a minion
+            elif good_data_flag == False:
+                for x in range(num_frames_x):
+                    for y in range(num_frames_y):
+                        used_flag = 0
+                        for uxy in used_frame:
+                            if (uxy == (str(x)+str(y))):
+                                used_flag = 1
+                        if (used_flag == 0) and (img_data[x][y][4] == 0) and (not data_found_flag):
+                            current_frame = frames[x][y]
+                            current_frame_x = x
+                            current_frame_y = y
+                            data_found_flag = 1
+
+            # processes data if frame we are looking for (has minion/not) is found; done otherwise
+            if data_found_flag == 1:
+            
+                # adding frame to used frame list
+                used_frame.append(str(current_frame_x) + str(current_frame_y))
+                #print("{} {}".format(used_frame,(str(current_frame_x) + str(current_frame_y))))
+            
+                # gets pixel data of current frame
+                pixels = p.get_pixels(current_frame)
+                
+                # image data contains all bounding boxes of the image
+                # curr_frame_x,y specifies a certain frame; 5th value is class
+                # assigns label to be feeded into nn
+                nn_input = img_data[current_frame_x][current_frame_y][5]
+                
+                # Appends new data to input batch
+                InputBatch[0].append(pixels)
+                InputBatch[1].append(nn_input)
+                
+                # Increases frameCount
+                frameCount = frameCount + 1
+                
+                # Breaks if we have extracted num_frames frames 
+                if(frameCount == num_frames):
+                    break
+    return(InputBatch)    
+#----------------------
 
 def get_image_data(image_num,image_dimensions,frame_size):
 
