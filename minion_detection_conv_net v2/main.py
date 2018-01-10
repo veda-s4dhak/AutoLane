@@ -15,6 +15,27 @@ import CNNModel as cnn
 import py_pixel as p
 import data_set as ds
 
+
+# Total number of frames used
+num_frames = 70
+    
+# 1 iff we use frames data from framesInput and not from data['framesInput']
+load_from_frames_input_flag = 1
+    
+# Training Parameters
+learning_rate = 1e-5
+num_steps = 2000
+batch_size = 10
+   
+# Network Parameters
+num_classes = 1 # MNIST total classes (0-9 digits)
+dropout = 0.25 # Dropout, probability to drop a unit
+    
+# Specifies number of frames for training, cross_validation, and evalutation
+training_frames = 30
+testing_frames = 30
+evaluation_frames = 10
+
 def valid_type(var):
 
     if (str(type(var)) == r"<class 'list'>") or \
@@ -106,6 +127,7 @@ def model_fn(features, labels, mode):
         eval_metric_ops={'accuracy': acc_op})
 
     return estim_specs
+
 if __name__ == '__main__':
 
     # mode = tf.placeholder(tf.string,shape=[3,3,3], name='mode')
@@ -114,50 +136,119 @@ if __name__ == '__main__':
     # sess = tf.Session()
     # sess.run(tf.global_variables_initializer())
     
-    num_frames = 60
-    
-    # Training Parameters
-    learning_rate = 1e-5
-    num_steps = 2000
-    batch_size = 5
-    
-    # Network Parameters
-    num_classes = 1 # MNIST total classes (0-9 digits)
-    dropout = 0.25 # Dropout, probability to drop a unit
-    
-    # Specifies number of frames for training, cross_validation, and evalutation
-    training_frames = 25
-    testing_frames = 25
-    evaluation_frames = 10
-    
-    # Calculates split positions for each type of data
-    splitInfo = [ training_frames, testing_frames, evaluation_frames]
-    splitInfoNP = np.array(splitInfo).astype(np.int32)
-    cumSplitInfo = np.cumsum(splitInfoNP, axis=0, dtype=np.int32)
-    
     # Gets number of images in the data set
     num_images = ds.get_num_processed_images()
-        
+    
     print('Total number of images: ', num_images)
     print('Total number of frames: ', num_frames)
     print('Batch size: ', batch_size)
     print('Learning Rate: ', learning_rate)
     
+    # IMPORTANT: Please delete frames1.npz and framesSplit1.npz to start over if
+    # processed data have changed
     
-    # Extracts num_frames frames from image data set
-    framesInput = ds.get_frames(num_frames)
+    # Frame Preparation block
+    try:
+        print('Attempting to load saved frames:')
+        data = np.load('frames1.npz')
+        
+    except(IOError):
+        print('Data file is not found. Preparing new data frames...')
+        ds.init_image_data()
+        framesInput = ds.get_frames(num_frames)
+        print('New framesInput data has been prepared with ', num_frames, ' frames.')
+        print('Saving new framesInput data...')
+        np.savez('frames1.npz', framesInput=framesInput, num_frames=num_frames)
+        print('New frames data have been saved. Proceed...')
+    else:
+        print('Data has been loaded successfully.')
+        
+        # Checks if changes have happended to num_frames
+        print('Checking num_frames in data match current num_frames...')
+        num_frames_new = data['num_frames']
+        if( num_frames_new!=num_frames ):
+            print('num_frames has changed from ',num_frames_new, ' to ', num_frames, ' since last run.')
+            print('Preparing new frames data...')
+            ds.init_image_data()
+            framesInput = ds.get_frames(num_frames)
+            print('New framesInput data has been prepared with ', num_frames, ' frames.')
+            print('Saving new framesInput data...')
+            np.savez('frames1.npz', framesInput=framesInput, num_frames=num_frames)
+            print('New frames data have been saved.')
+        else:
+            print('No changes have been made to num_frames since last run. Proceed...')
+            load_from_frames_input_flag = 0
+        
+        
+    # Splitted Frame Preparation block
+    try:
+        print('Attempting to load splitted frames:')
+        data2 = np.load('framesSplit1.npz')
+    except(IOError):
+        print('Data file is not found. Preparing new splitted frames...')
+        
+        # Calculates split positions for each type of data
+        splitInfo = [ training_frames, testing_frames, evaluation_frames]
+        splitInfoNP = np.array(splitInfo).astype(np.int32)
+        cumSplitInfo = np.cumsum(splitInfoNP, axis=0, dtype=np.int32)
+        
+        # Shuffles our frames
+        if (load_from_frames_input_flag):
+            frames, lbls = shuffleTwoLists(framesInput[0], framesInput[1])
+        else:
+            frames, lbls = shuffleTwoLists(data['framesInput'][0], data['framesInput'][1])
     
-    # Shuffles our frames
-    frames, lbls = shuffleTwoLists(framesInput[0], framesInput[1])
+        # Converts frames and labels to np array
+        framesNP = np.array(frames).astype(np.float32)
+        lblsNP = np.array(lbls).reshape([-1,1]).astype(np.float32)
     
-    # Converts frames and labels to np array
-    framesNP = np.array(frames).astype(np.float32)
-    lblsNP = np.array(lbls).reshape([-1,1]).astype(np.float32)
+        # Splits the frames and labels based on cumSplitInfo
+        splitFrames = np.split(framesNP, cumSplitInfo, 0)
+        splitLbls = np.split(lblsNP, cumSplitInfo, 0)
+        print('New splitted frames data set is ready.')
+        print('Saving data...')
+        np.savez('framesSplit1.npz', splitFrames=splitFrames, splitLbls=splitLbls,
+                 training_frames=training_frames, testing_frames=testing_frames, evaluation_frames=evaluation_frames)
+        print('New splitted frames data have been saved. Proceed...')
+    else:
+        
+        print('Splitted frames data have been loaded successfully.')
+        print('Checking split sizes match current split sizes...')
+        training_frames_new=data2['training_frames']
+        testing_frames_new=data2['testing_frames']
+        evaluation_frames_new=data2['evaluation_frames']
+        if (training_frames != training_frames_new or testing_frames != testing_frames_new or evaluation_frames_new != evaluation_frames):
+            print('Splitted Frames sizes have changed since last run.')
+            print('Preparing new splitted frames data...')
+            
+            # Calculates split positions for each type of data
+            splitInfo = [ training_frames, testing_frames, evaluation_frames]
+            splitInfoNP = np.array(splitInfo).astype(np.int32)
+            cumSplitInfo = np.cumsum(splitInfoNP, axis=0, dtype=np.int32)
+        
+            # Shuffles our frames
+            if (load_from_frames_input_flag):
+                frames, lbls = shuffleTwoLists(framesInput[0], framesInput[1])
+            else:
+                frames, lbls = shuffleTwoLists(data['framesInput'][0], data['framesInput'][1])
     
-    # Splits the frames and labels based on cumSplitInfo
-    splitFrames = np.split(framesNP, cumSplitInfo, 0)
-    splitLbls = np.split(lblsNP, cumSplitInfo, 0)
-    
+            # Converts frames and labels to np array
+            framesNP = np.array(frames).astype(np.float32)
+            lblsNP = np.array(lbls).reshape([-1,1]).astype(np.float32)
+            
+            # Splits the frames and labels based on cumSplitInfo
+            splitFrames = np.split(framesNP, cumSplitInfo, 0)
+            splitLbls = np.split(lblsNP, cumSplitInfo, 0)
+            print('New data set is ready.')
+            print('Saving data...')
+            np.savez('framesSplit1.npz', splitFrames=splitFrames, splitLbls=splitLbls,
+                     training_frames=training_frames, testing_frames=testing_frames, evaluation_frames=evaluation_frames)
+            print('New splitted frames data have been saved. Proceed...')
+        else:
+            print('No changes have been made to splitted frames sizes since last run. Proceed...')
+            splitFrames = data2['splitFrames']
+            splitLbls = data2['splitLbls']
+        
     # Assigns frames and labels arrays
     trainFramesNP = splitFrames[0]
     testFramesNP = splitFrames[1]
@@ -165,7 +256,7 @@ if __name__ == '__main__':
     
     trainLblsNP = splitLbls[0]
     testLblsNP = splitLbls[1]
-    evalLblsNP = splitLbls[2]   
+    evalLblsNP = splitLbls[2]
     
     print('Train Data shape: ', np.shape(trainFramesNP))
     print('Test Data shape: ', np.shape(testFramesNP))
@@ -178,9 +269,6 @@ if __name__ == '__main__':
         
     # Build the Estimator
     model = tf.estimator.Estimator(model_fn)
-    
-    #framesInputNP = np.array(framesInput[0]).astype(np.float32)
-    #labels = np.array(framesInput[1]).reshape([-1,1]).astype(np.float32)
     
     # Define the input function for training
     input_fn = tf.estimator.inputs.numpy_input_fn(
@@ -202,7 +290,11 @@ if __name__ == '__main__':
 
     print("Testing Accuracy:", e['accuracy'])
 
-
-
+    try:
+        data.close()
+        data2.close()
+    except(NameError):
+        print('')
+    
 
 

@@ -17,7 +17,7 @@ global processed_image_tot
 processed_image_tot = 0
 
 global numImagesTotal
-
+numImagesTotal = 0
 # Frame settings:
 # Specifies the neural network architecture: from line 31 to 60
 global frame_size 
@@ -69,7 +69,9 @@ def get_num_processed_images():
 
     return len(valid_file_list)
 
+# Sets images total to number of loaded images
 numImagesTotal = get_num_processed_images()
+
 #-----------------------
 
 def get_processed_data_path():
@@ -286,7 +288,8 @@ def init_image_data():
         imgDataSet.append([Images[i-1], fullImageDim[i-1], imageBoundData[i-1], frameData[i-1]])
         
         
-init_image_data()
+        
+
 
 # Test below
 #cool = get_image_batch(batch_size=2)
