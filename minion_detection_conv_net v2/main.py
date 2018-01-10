@@ -24,15 +24,40 @@ def valid_type(var):
     else:
         return False
 
+'''
+Shuffles two lists together matching the element's
+respective position in the 2 lists.
+
+l1, l2:  the lists to be shuffled together
+a, b: the shuffled lists l1 and l2
+'''
 def shuffleTwoLists(l1, l2):
     
     lA = cp.deepcopy(l1)
     lB = cp.deepcopy(l2)
     c = list(zip(lA,lB))
     rand.shuffle(c)
+    
+    # Unzips the list of tuples
     a, b = zip(*c)
     return a,b
+
+'''
+Given x, returns a matrix of shape x.
+This matrix's particular element is 1
+iff x's corresponding element >= 0.5
+
+x: the input matrix
+out: matrix to be returned as described above
+'''
+def binary_activation(x):
     
+    num = tf.zeros(shape=tf.shape(x), dtype=tf.float32)+0.5
+    cond = tf.less(x, num)
+    out = tf.where(cond, tf.zeros(tf.shape(x)), tf.ones(tf.shape(x)))
+
+    return out
+
 # Define the model function (following TF Estimator Template)
 def model_fn(features, labels, mode):
     # Build the neural network
@@ -49,7 +74,8 @@ def model_fn(features, labels, mode):
     print(labels)
     # Predictions
     #pred_classes = tf.argmax(logits_test, axis=1)
-    pred_classes = logits_train
+    pred_classes = binary_activation(logits_train)
+    
     pred_probas = tf.nn.softmax(logits_test)
     
     print('Prediction Shape:', np.shape(pred_classes))
@@ -88,45 +114,77 @@ if __name__ == '__main__':
     # sess = tf.Session()
     # sess.run(tf.global_variables_initializer())
     
-    num_frames = 30
+    num_frames = 60
     
     # Training Parameters
     learning_rate = 1e-5
-    num_steps = 10000
-    batch_size = 10
-
+    num_steps = 2000
+    batch_size = 5
+    
     # Network Parameters
-    num_input = 30 # MNIST data input (img shape: 28*28)
     num_classes = 1 # MNIST total classes (0-9 digits)
     dropout = 0.25 # Dropout, probability to drop a unit
     
+    # Specifies number of frames for training, cross_validation, and evalutation
+    training_frames = 25
+    testing_frames = 25
+    evaluation_frames = 10
+    
+    # Calculates split positions for each type of data
+    splitInfo = [ training_frames, testing_frames, evaluation_frames]
+    splitInfoNP = np.array(splitInfo).astype(np.int32)
+    cumSplitInfo = np.cumsum(splitInfoNP, axis=0, dtype=np.int32)
+    
     # Gets number of images in the data set
     num_images = ds.get_num_processed_images()
-    images_processed = 0
         
     print('Total number of images: ', num_images)
-        
-        
-    # cost function
-    # CF = 0
-        
+    print('Total number of frames: ', num_frames)
+    print('Batch size: ', batch_size)
+    print('Learning Rate: ', learning_rate)
+    
+    
     # Extracts num_frames frames from image data set
     framesInput = ds.get_frames(num_frames)
+    
+    # Shuffles our frames
+    frames, lbls = shuffleTwoLists(framesInput[0], framesInput[1])
+    
+    # Converts frames and labels to np array
+    framesNP = np.array(frames).astype(np.float32)
+    lblsNP = np.array(lbls).reshape([-1,1]).astype(np.float32)
+    
+    # Splits the frames and labels based on cumSplitInfo
+    splitFrames = np.split(framesNP, cumSplitInfo, 0)
+    splitLbls = np.split(lblsNP, cumSplitInfo, 0)
+    
+    # Assigns frames and labels arrays
+    trainFramesNP = splitFrames[0]
+    testFramesNP = splitFrames[1]
+    evalFramesNP = splitFrames[2]
+    
+    trainLblsNP = splitLbls[0]
+    testLblsNP = splitLbls[1]
+    evalLblsNP = splitLbls[2]   
+    
+    print('Train Data shape: ', np.shape(trainFramesNP))
+    print('Test Data shape: ', np.shape(testFramesNP))
+    print('Eval Data shape: ', np.shape(evalFramesNP))
+    print('Train Label shape: ', np.shape(trainLblsNP))
+    print('Test Label shape: ', np.shape(testLblsNP))
+    print('Eval Label shape: ', np.shape(evalLblsNP))
     
     print("\n--------------------- Execution Start ---------------------\n")
         
     # Build the Estimator
     model = tf.estimator.Estimator(model_fn)
     
-    framesInputNP = np.array(framesInput[0]).astype(np.float32)
-    labels = np.array(framesInput[1]).reshape([-1,1]).astype(np.float32)
-    
-    print('Data shape: ', np.shape(framesInputNP))
-    print('Label shape: ', np.shape(labels))
+    #framesInputNP = np.array(framesInput[0]).astype(np.float32)
+    #labels = np.array(framesInput[1]).reshape([-1,1]).astype(np.float32)
     
     # Define the input function for training
     input_fn = tf.estimator.inputs.numpy_input_fn(
-    x={'images': framesInputNP}, y=labels,
+    x={'images': trainFramesNP}, y=trainLblsNP,
     batch_size=batch_size, num_epochs=None, shuffle=True)
     
     # Train the Model
@@ -135,13 +193,14 @@ if __name__ == '__main__':
 
     # Evaluate the Model
     # Define the input function for evaluating
-    '''input_fn = tf.estimator.inputs.numpy_input_fn(
-    x={'images': mnist.test.images}, y=mnist.test.labels,
+    input_fn = tf.estimator.inputs.numpy_input_fn(
+    x={'images': testFramesNP}, y=testLblsNP,
     batch_size=batch_size, shuffle=False)
+    
     # Use the Estimator 'evaluate' method
-    e = model.evaluate(input_fn)'''
+    e = model.evaluate(input_fn)
 
-    #print("Testing Accuracy:", e['accuracy'])
+    print("Testing Accuracy:", e['accuracy'])
 
 
 
