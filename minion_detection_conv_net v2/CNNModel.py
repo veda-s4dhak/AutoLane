@@ -30,12 +30,12 @@ def conv_net(x_dict, n_classes, dropout, reuse, is_training):
         # Tensor input become 4-D: [Batch Size, Height, Width, Channel]
         x = tf.reshape(x, shape=[-1, 128, 128, 3])
 
-        # Convolution Layer with 32 filters and a kernel size of 5
+        # Convolution Layer with 15 filters and a kernel size of 5
         conv1 = tf.layers.conv2d(x, 15, 5, activation=tf.nn.relu)
         # Max Pooling (down-sampling) with strides of 2 and kernel size of 2
         conv1 = tf.layers.max_pooling2d(conv1, 2, 2)
 
-        # Convolution Layer with 64 filters and a kernel size of 3
+        # Convolution Layer with 15 filters and a kernel size of 3
         conv2 = tf.layers.conv2d(conv1, 15, 3, activation=tf.nn.relu)
         # Max Pooling (down-sampling) with strides of 2 and kernel size of 2
         conv2 = tf.layers.max_pooling2d(conv2, 2, 2)

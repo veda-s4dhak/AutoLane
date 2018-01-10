@@ -91,7 +91,7 @@ if __name__ == '__main__':
     num_frames = 30
     
     # Training Parameters
-    learning_rate = 1e-9
+    learning_rate = 1e-5
     num_steps = 10000
     batch_size = 10
 
