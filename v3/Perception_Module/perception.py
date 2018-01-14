@@ -15,8 +15,6 @@ class perception_screen():
         size = width , height = screen_size_x , screen_size_y
         self.screen = pygame.display.set_mode(size)
 
-
-
         self.red = (255,0,0)
         self.blue = (0,0,255)
         self.yellow = (255,255,0)
