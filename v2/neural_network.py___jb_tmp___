@@ -1,0 +1,192 @@
+# ===================================== IMPORTS ===================================== #
+import tensorflow as tf
+import os
+import numpy as np
+
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2' # Removing warnings
+
+# ================================== NN CHECK ================================== #
+
+def check_nn_config(layers,conv_layers,fc_layers,conv_z_matrix,fil_size_matrix,
+                    pooling_matrix,stride_matrix,pool_stride_matrix,pool_type,
+                    activation_type,input_x,input_y,input_z):
+
+    nn_config_valid = 1
+
+    if ( (conv_layers + fc_layers) > layers ) or ( (conv_layers + fc_layers) < layers ):
+        print('Error: Invalid values for conv_layers and fc layers')
+        nn_config_valid = 0
+    elif ( len(conv_z_matrix) > conv_layers ) or ( len(conv_z_matrix) < conv_layers ):
+        print('Error: Invalid values for conv_z_matrix')
+    elif ( len(fil_size_matrix) > conv_layers ) or ( len(fil_size_matrix) < conv_layers ):
+        print('Error: Invalid values for fil_size_matrix')
+        nn_config_valid = 0
+    elif (len(pooling_matrix) < conv_layers) or (len(pooling_matrix) > conv_layers):
+        print('Error: Invalid values for pool_matrix')
+        nn_config_valid = 0
+    elif (len(stride_matrix) < conv_layers) or (len(stride_matrix) > conv_layers):
+        print('Error: Invalid values for stride_matrix')
+        nn_config_valid = 0
+    elif (len(pool_stride_matrix) < conv_layers) or (len(pool_stride_matrix) > conv_layers):
+        print('Error: Invalid values for pool_stride_matrix')
+        nn_config_valid = 0
+    else:
+        for layer in range(0,conv_layers):
+
+            print('\n-------- Layer {} Check Dimensions --------'.format(layer))
+
+            if layer == 0:
+                current_parameters = [1,input_x,input_y,input_z]
+                channel_input = input_z
+            else:
+                channel_input = conv_z_matrix[layer-1]
+
+            weights = [ fil_size_matrix[layer],fil_size_matrix[layer],channel_input,conv_z_matrix[layer] ]
+            bias = [conv_z_matrix[layer]]
+
+            convolution_x = int( np.floor( (current_parameters[1]-weights[0])/stride_matrix[layer][0] ) + 1 )
+            convolution_y = int( np.floor( (current_parameters[2]-weights[1])/stride_matrix[layer][1] ) + 1 )
+            conv = [1,convolution_x,convolution_y,conv_z_matrix[layer]]
+
+            pool_x = int( np.floor( (conv[1]-pooling_matrix[layer][0])/pool_stride_matrix[layer][0] ) + 1 )
+            pool_y = int( np.floor( (conv[2]-pooling_matrix[layer][1])/pool_stride_matrix[layer][1] ) + 1 )
+            pool = [1,pool_x,pool_y,conv_z_matrix[layer]]
+
+            print("Weights: {}".format(weights))
+            print("Bias: {}".format(bias))
+            print("Conv: {}".format(conv))
+            print("Pool: {}".format(pool))
+
+            for weight_parameter in weights:
+                if weight_parameter <= 0:
+                    print("Error: invalid network layer {}, weights must be > 0".format(layer))
+                    return 0
+
+            for bias_parameter in bias:
+                if bias_parameter <= 0:
+                        print("Error: invalid network layer {}, bias must be > 0".format(layer))
+                        return 0
+
+            for conv_parameter in conv:
+                if conv_parameter <= 0:
+                    print("Error: invalid network layer {}, conv must be > 0".format(layer))
+                    return 0
+
+            for pool_parameter in pool:
+                if pool_parameter <= 0:
+                    print("Error: invalid network layer {}, pool must be > 0".format(layer))
+                    return 0
+
+            current_parameters = pool
+
+    return nn_config_valid
+
+# ================================== NN CLASS ================================== #
+
+class conv_net():
+
+    def __init__(self,layers,conv_layers,fc_layers,conv_z_matrix,fil_size_matrix,
+               pooling_matrix,stride_matrix,pool_stride_matrix,pool_type,activation_type,
+               input_x,input_y,input_z): # Constructor
+
+        self.num_layers = layers
+        self.num_conv_layers = conv_layers
+        self.num_fc_layers = fc_layers
+        self.conv_z_sizes = conv_z_matrix
+        self.fil_sizes = fil_size_matrix
+        self.pool_sizes = pooling_matrix
+        self.stride_sizes = stride_matrix
+        self.pool_stride_sizes = pool_stride_matrix
+        self.pool_type = pool_type
+        self.activation_type = activation_type
+
+        self.input_pixels = tf.placeholder(tf.float32,shape=[input_x,input_y,input_z]) # This is the input that will be fed externally
+        self.input_data = tf.reshape(self.input_pixels,[-1,input_x,input_y,input_z]) # Reshaping the input
+
+        self.sess = tf.Session()
+
+        self.current_layer_shape = []
+        self.current_parameters = []
+        self.current_weights = []
+        self.current_bias = []
+        self.current_convolution = []
+        self.current_activation = []
+        self.current_pool = []
+
+        for layer in range(0,self.num_conv_layers):
+
+            if layer == 0:
+                channel_input = input_z
+                self.current_parameters.append(self.input_data)
+            else:
+                channel_input = self.conv_z_sizes[layer-1]
+
+            self.current_weights.append( init_weight_var([self.fil_sizes[layer],self.fil_sizes[layer],channel_input,self.conv_z_sizes[layer]]) )
+            self.current_bias.append( init_bias_var([self.conv_z_sizes[layer]]) )
+            self.current_convolution.append( convolution(self.current_parameters[layer],self.current_weights[layer],self.stride_sizes[layer]) + self.current_bias[layer] )
+            self.current_activation.append( activation(self.current_convolution[layer],activation_type=self.activation_type) )
+            self.current_pool.append( pool(self.current_activation[layer],self.pool_sizes[layer],self.pool_stride_sizes[layer],pool_type=self.pool_type) )
+            self.current_parameters.append( self.current_pool[layer] )
+
+            print('\n-------- Layer {} Param Dimensions --------'.format(layer))
+            print("CP: {}".format(self.current_parameters[layer]))
+            print("CW: {}".format(self.current_weights[layer]))
+            print("CB: {}".format(self.current_bias[layer]))
+            print("CC: {}".format(self.current_convolution[layer]))
+            print("CA: {}".format(self.current_activation[layer]))
+            print("CPl: {}".format(self.current_pool[layer]))
+
+
+        self.ACTUAL_OUTPUT = tf.Variable(self.current_parameters[self.num_conv_layers])
+        self.NN_OUTPUT = tf.Variable(self.current_parameters[self.num_conv_layers])
+
+        print('\n-------- Input/Output Dimensions --------')
+        print("ACTUAL_OUTPUT: {}".format(self.ACTUAL_OUTPUT))
+        print("NN_OUTPUT: {}".format(self.NN_OUTPUT))
+
+        self.cost_function = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.ACTUAL_OUTPUT,logits=self.NN_OUTPUT))
+        self.train_step = tf.train.AdamOptimizer(1e-4).minimize(self.cost_function)
+        self.prediction = tf.equal( tf.argmax(self.NN_OUTPUT,1),tf.argmax(self.ACTUAL_OUTPUT,1) )
+        self.accuracy = tf.reduce_mean( tf.cast(self.prediction,tf.float32) )
+
+        #self.sess.run(tf.global_variables_initializer())
+s
+    def execute(self, pixels, actual_output):
+
+        ACTUAL_OUTPUT, NN_OUTPUT, cost_function, train_step, prediction, accuracy = \
+        self.sess.run([self.ACTUAL_OUTPUT,self.NN_OUTPUT,self.cost_function, self.train_step, self.prediction, self.accuracy],
+        feed_dict={self.input_pixels : pixels, self.ACTUAL_OUTPUT : actual_output})
+
+        return ACTUAL_OUTPUT, NN_OUTPUT, cost_function, train_step, prediction, accuracy
+
+# ================================== NN OPERATIONS ================================== #
+
+def init_weight_var(shape):
+
+    weight_var = tf.truncated_normal(shape, stddev=0.1)
+    return weight_var
+
+def init_bias_var(shape):
+
+    bias_var = tf.constant(0.1, shape=shape)
+    return bias_var
+
+def convolution(parameters,weights,stride_size,padding_type='VALID'):
+
+    convolution = tf.nn.conv2d(parameters, weights, strides=[1,stride_size[0],stride_size[1],1], padding=padding_type)
+    return convolution
+
+def pool(parameters,pool_size,pool_stride_size=[1,1,1,1],padding_type='VALID',pool_type='MAX'):
+
+    # TO DO: Figure out how pool_stride_size will affect this equation and integrate
+
+    if pool_type == 'MAX':
+        pool = tf.nn.max_pool(parameters, ksize=[1,pool_size[0],pool_size[1],1], strides=[1,pool_stride_size[0],pool_stride_size[1],1], padding=padding_type)
+    elif pool_type == 'AVG':
+        pool = tf.nn.avg_pool(parameters, ksize=[1,pool_size[0],pool_size[1],1], strides=[1,pool_stride_size[0],pool_stride_size[1],1], padding=padding_type)
+
+    return pool
+
+def activation(parameters,activation_type = 'RELU'):
+
+    if activation_type
