@@ -12,7 +12,7 @@ class perception_screen():
         pygame.init()
 
         # Initializing PyGame Window
-        size = width , height = screen_size_x , screen_size_y
+        size = screen_size_x , screen_size_y
         self.screen = pygame.display.set_mode(size)
 
         self.red = (255,0,0)
