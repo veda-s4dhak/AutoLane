@@ -6,6 +6,8 @@ import time
 
 import perception as p
 
+# ================================ Main ================================ #
+
 if __name__ == '__main__':
 
     screen_size_x = 1080
