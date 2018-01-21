@@ -13,7 +13,7 @@ import time
 # ================================== GLOBAL VARIABLES ================================== #
 
 global image_num
-image_num = 1
+image_num = 0
 
 global current_image
 
@@ -41,8 +41,8 @@ def init_gui():
     # Getting starting image
 
     global current_image
-    img_path = base_dir + r'\raw_1.png'
-    current_image = r'\raw_1.png'
+    img_path = base_dir + r'\raw_0.png'
+    current_image = r'\raw_0.png'
     rgb_image = Image.open(img_path).convert()
     image_w, image_l = rgb_image.size
     gp_thread = get_pixels_thread(1)
@@ -53,7 +53,7 @@ def init_gui():
     global gui
     gui = tk.Tk()
     gui.resizable(width=False,height=False)
-    gui.geometry('{}x{}'.format(image_w+200,image_l+30))
+    gui.geometry('{}x{}'.format(image_w+100,image_l+30))
 
     # Initializing canvas
 
@@ -68,17 +68,17 @@ def init_gui():
 
     # Initializing Buttons
 
-    next_btn = tk.Button(gui,text="Next",command=lambda:show_next_pic())
-    next_btn.place(x=image_w+70,y=50)
+    next_btn = tk.Button(gui,text="    Next   ",command=lambda:show_next_pic())
+    next_btn.place(x=image_w+25,y=20)
 
     previous_btn = tk.Button(gui, text="Previous", command=lambda:show_previous_pic())
-    previous_btn.place(x=image_w + 70, y=120)
+    previous_btn.place(x=image_w + 25, y=50)
 
-    submit_btn = tk.Button(gui, text="Submit", command=lambda:submit_edited_pic())
-    submit_btn.place(x=image_w + 70, y=190)
+    submit_btn = tk.Button(gui, text="  Submit ", command=lambda:submit_edited_pic())
+    submit_btn.place(x=image_w + 25, y=80)
 
-    clear_btn = tk.Button(gui, text="Clear", command=lambda:print("Clear button pressed"))
-    clear_btn.place(x=image_w + 70, y=260)
+    clear_btn = tk.Button(gui, text="   Clear   ", command=lambda:print("Clear button pressed"))
+    clear_btn.place(x=image_w + 25, y=110)
 
     canvas.bind("<Button 1>", mouse_click_event)
 
@@ -139,7 +139,7 @@ def submit_edited_pic():
     pixels = np.fliplr(pix)
     pixels = np.rot90(pixels)
 
-    new_img_path = output_dir + r'\edited_{}.png'.format(image_num)
+    new_img_path = output_dir + r'\processed_{}.png'.format(image_num)
     smp.imsave(new_img_path, pixels)
 
     file = open(output_dir+ r'\bounding_boxes_' + str(image_num) + '.txt', 'w+')

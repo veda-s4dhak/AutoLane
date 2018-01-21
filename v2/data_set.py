@@ -113,7 +113,7 @@ def get_frames(num_frames):
     InputBatch = [[],[]]
     frameCount = 0
     for j in range(numImagesTotal):
-                
+
         # accumulates all frames/grids processed in the image
         used_frame = []
                 
