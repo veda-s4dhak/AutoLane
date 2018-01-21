@@ -49,6 +49,20 @@ def get_image_path(image_num):
     return(processed_data_path + r'\processed_{}'.format(image_num) + '.png')
 
 '''
+Shuffles two np arrays along axis 0 in the same order.
+
+Inputs:
+l1, l2: np arrays to be shuffled in unison
+
+Output: 
+arrays shuffled in the same order
+'''
+def shuffleTwoNPArrays(l1, l2):
+    numData = np.arange(l1.shape[0])
+    np.random.shuffle(numData)
+    return l1[numData], l2[numData]
+
+'''
 Returns:
 np array of type float32 containing all the images loaded
 '''
