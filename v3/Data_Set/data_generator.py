@@ -15,10 +15,10 @@ image_num = 0
 global current_image
 
 global base_dir
-base_dir = r'C:\\Users\\Veda Sadhak\\Desktop\\LOL-Autolane\\raw_dataset'
+base_dir = r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\raw_dataset'
 
 global output_dir
-output_dir = r'C:\\Users\\Veda Sadhak\\Desktop\\LOL-Autolane\\processed_dataset'
+output_dir = r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\processed_dataset'
 
 global pix
 global pix_ready_flag
