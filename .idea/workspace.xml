@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba26bedd-696f-4eb8-b772-367335d5ea30" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v2/CNNModel.py" afterPath="$PROJECT_DIR$/v2/CNNModel.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v2/data_generator.py" afterPath="$PROJECT_DIR$/v2/data_generator.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v2/data_set.py" afterPath="$PROJECT_DIR$/v2/data_set.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Data_Set/data_generator.py" afterPath="$PROJECT_DIR$/v3/Data_Set/data_generator.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Perception/perception_screen_test.py" afterPath="$PROJECT_DIR$/v3/Perception/perception_screen_test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" afterPath="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Screen_Capture/screen_capture.py" afterPath="$PROJECT_DIR$/v3/Screen_Capture/screen_capture.py" />
-    </list>
+    <list default="true" id="ba26bedd-696f-4eb8-b772-367335d5ea30" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
