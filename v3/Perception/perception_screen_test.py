@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
     ps = p.perception_screen(screen_size_x,screen_size_y)
 
-    # This block test the draw matrix function
+    # This block test the draw matrix method
     # ======================================
     while True:
         matrix = np.random.randint(0, 2, size=(25, 20))
@@ -32,7 +32,7 @@ if __name__ == '__main__':
         time.sleep(0.1)
     # ======================================
 
-    # This block test the draw rect function
+    # This block test the draw rect method
     # ======================================
     # color = "red"
     #

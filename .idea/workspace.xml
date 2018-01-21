@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba26bedd-696f-4eb8-b772-367335d5ea30" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/minion_detection_conv_net v2/.idea/minion_detection_conv_net v2.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/v3/Screen_Capture/screen_capture.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/README.md" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/v3/Perception_Module/perception.py" afterPath="$PROJECT_DIR$/v3/Perception/perception.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/v3/Perception_Module/perception_screen_test.py" afterPath="$PROJECT_DIR$/v3/Perception/perception_screen_test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v2/data_generator.py" afterPath="$PROJECT_DIR$/v2/data_generator.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v2/data_set.py" afterPath="$PROJECT_DIR$/v2/data_set.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Perception/perception_screen_test.py" afterPath="$PROJECT_DIR$/v3/Perception/perception_screen_test.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,7 +12,20 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="perception_screen_test.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/v3/Perception/perception_screen_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="34" column="42" lean-forward="false" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
+              <folding>
+                <element signature="e#85#96#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -49,10 +54,10 @@
         <option value="$PROJECT_DIR$/v2/data_generator.py" />
         <option value="$PROJECT_DIR$/v3/Data_Set/data_labeller.py" />
         <option value="$PROJECT_DIR$/v3/Perception/perception.py" />
-        <option value="$PROJECT_DIR$/v3/Perception/perception_screen_test.py" />
         <option value="$PROJECT_DIR$/v2/py_pixel.py" />
         <option value="$PROJECT_DIR$/v3/Screen_Capture/screen_capture.py" />
         <option value="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" />
+        <option value="$PROJECT_DIR$/v3/Perception/perception_screen_test.py" />
       </list>
     </option>
   </component>
@@ -83,6 +88,17 @@
             <path>
               <item name="LOL-Autolane" type="b2602c69:ProjectViewProjectNode" />
               <item name="LOL-Autolane" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LOL-Autolane" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LOL-Autolane" type="462c0819:PsiDirectoryNode" />
+              <item name="v3" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LOL-Autolane" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LOL-Autolane" type="462c0819:PsiDirectoryNode" />
+              <item name="v3" type="462c0819:PsiDirectoryNode" />
+              <item name="Perception" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -225,8 +241,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.240625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.240625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -405,9 +422,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="112" column="20" lean-forward="false" selection-start-line="112" selection-start-column="20" selection-end-line="112" selection-end-column="20" />
-          <folding>
-            <element signature="e#89#109#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -437,22 +452,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/v3/Perception/perception_screen_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="e#85#96#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/v3/Perception/perception.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
           <folding>
             <element signature="e#85#95#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v3/Perception/perception_screen_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="34" column="42" lean-forward="false" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
+          <folding>
+            <element signature="e#85#96#0" expanded="true" />
           </folding>
         </state>
       </provider>
