@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba26bedd-696f-4eb8-b772-367335d5ea30" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v2/CNNModel.py" afterPath="$PROJECT_DIR$/v2/CNNModel.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v2/data_generator.py" afterPath="$PROJECT_DIR$/v2/data_generator.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v2/data_set.py" afterPath="$PROJECT_DIR$/v2/data_set.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Data_Set/data_generator.py" afterPath="$PROJECT_DIR$/v3/Data_Set/data_generator.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Perception/perception_screen_test.py" afterPath="$PROJECT_DIR$/v3/Perception/perception_screen_test.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" afterPath="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Screen_Capture/screen_capture.py" afterPath="$PROJECT_DIR$/v3/Screen_Capture/screen_capture.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,13 +19,99 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="perception_screen_test.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="screen_capture.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/screen_capture.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CNNModel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/v2/CNNModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="data_set.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/v2/data_set.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="47" lean-forward="false" selection-start-line="0" selection-start-column="47" selection-end-line="0" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="data_generator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/v2/data_generator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="47" lean-forward="false" selection-start-line="0" selection-start-column="47" selection-end-line="0" selection-end-column="47" />
+              <folding>
+                <element signature="e#96#116#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/v2/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="171" column="32" lean-forward="true" selection-start-line="171" selection-start-column="32" selection-end-line="171" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="perception_screen_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/v3/Perception/perception_screen_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="34" column="42" lean-forward="false" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
+            <state relative-caret-position="0">
+              <caret line="0" column="49" lean-forward="false" selection-start-line="0" selection-start-column="49" selection-end-line="0" selection-end-column="49" />
               <folding>
-                <element signature="e#85#96#0" expanded="true" />
+                <element signature="e#86#97#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="generate_screenshots.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="48" lean-forward="false" selection-start-line="0" selection-start-column="48" selection-end-line="0" selection-end-column="48" />
+              <folding>
+                <element signature="e#85#112#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="data_generator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_generator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="154" column="50" lean-forward="false" selection-start-line="154" selection-start-column="50" selection-end-line="154" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="perception.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/v3/Perception/perception.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="48" lean-forward="false" selection-start-line="0" selection-start-column="48" selection-end-line="0" selection-end-column="48" />
+              <folding>
+                <element signature="e#85#95#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -50,18 +142,20 @@
         <option value="$PROJECT_DIR$/v3/Perception_Module/perception.py" />
         <option value="$PROJECT_DIR$/v3/Perception_Module/perception_screen_test.py" />
         <option value="$PROJECT_DIR$/v3/Real_Time_Screen_Capture_Module/screen_capture.py" />
-        <option value="$PROJECT_DIR$/v2/data_set.py" />
-        <option value="$PROJECT_DIR$/v2/data_generator.py" />
         <option value="$PROJECT_DIR$/v3/Data_Set/data_labeller.py" />
         <option value="$PROJECT_DIR$/v3/Perception/perception.py" />
         <option value="$PROJECT_DIR$/v2/py_pixel.py" />
-        <option value="$PROJECT_DIR$/v3/Screen_Capture/screen_capture.py" />
-        <option value="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" />
+        <option value="$PROJECT_DIR$/v3/Data_Set/data_generator.py" />
         <option value="$PROJECT_DIR$/v3/Perception/perception_screen_test.py" />
+        <option value="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" />
+        <option value="$PROJECT_DIR$/v3/Screen_Capture/screen_capture.py" />
+        <option value="$PROJECT_DIR$/v2/CNNModel.py" />
+        <option value="$PROJECT_DIR$/v2/data_generator.py" />
+        <option value="$PROJECT_DIR$/v2/data_set.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-7" />
     <option name="width" value="1399" />
     <option name="height" value="1047" />
@@ -92,13 +186,12 @@
             <path>
               <item name="LOL-Autolane" type="b2602c69:ProjectViewProjectNode" />
               <item name="LOL-Autolane" type="462c0819:PsiDirectoryNode" />
-              <item name="v3" type="462c0819:PsiDirectoryNode" />
+              <item name="v2" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="LOL-Autolane" type="b2602c69:ProjectViewProjectNode" />
               <item name="LOL-Autolane" type="462c0819:PsiDirectoryNode" />
               <item name="v3" type="462c0819:PsiDirectoryNode" />
-              <item name="Perception" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -240,7 +333,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.240625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -276,7 +369,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#85#100#0" expanded="false" />
+            <element signature="e#86#101#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -332,7 +425,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#85#100#0" expanded="false" />
+            <element signature="e#86#101#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -368,22 +461,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/v2/data_set.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1870">
-          <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/v2/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3094">
-          <caret line="195" column="0" lean-forward="false" selection-start-line="195" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/datetime.pyi">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-357">
@@ -402,44 +479,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/v2/data_generator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="265" column="40" lean-forward="true" selection-start-line="265" selection-start-column="40" selection-end-line="265" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_generator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="30" column="18" lean-forward="true" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_labeller.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="112" column="20" lean-forward="false" selection-start-line="112" selection-start-column="20" selection-end-line="112" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="e#84#111#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/screen_capture.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="70" column="9" lean-forward="false" selection-start-line="70" selection-start-column="9" selection-end-line="70" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -452,10 +495,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="154" column="50" lean-forward="false" selection-start-line="154" selection-start-column="50" selection-end-line="154" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/v3/Perception/perception.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        <state relative-caret-position="0">
+          <caret line="0" column="48" lean-forward="false" selection-start-line="0" selection-start-column="48" selection-end-line="0" selection-end-column="48" />
           <folding>
             <element signature="e#85#95#0" expanded="true" />
           </folding>
@@ -464,11 +515,63 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/v3/Perception/perception_screen_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="34" column="42" lean-forward="false" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
+        <state relative-caret-position="0">
+          <caret line="0" column="49" lean-forward="false" selection-start-line="0" selection-start-column="49" selection-end-line="0" selection-end-column="49" />
           <folding>
-            <element signature="e#85#96#0" expanded="true" />
+            <element signature="e#86#97#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="48" lean-forward="false" selection-start-line="0" selection-start-column="48" selection-end-line="0" selection-end-column="48" />
+          <folding>
+            <element signature="e#85#112#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/screen_capture.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v2/CNNModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v2/data_generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="47" lean-forward="false" selection-start-line="0" selection-start-column="47" selection-end-line="0" selection-end-column="47" />
+          <folding>
+            <element signature="e#96#116#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v2/data_set.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="47" lean-forward="false" selection-start-line="0" selection-start-column="47" selection-end-line="0" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v2/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="171" column="32" lean-forward="true" selection-start-line="171" selection-start-column="32" selection-end-line="171" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>

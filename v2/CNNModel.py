@@ -2,7 +2,7 @@
 """
 Created on Tue Jan  9 18:10:38 2018
 
-@author: HP_OWNER
+@author: Satoshi
 """
 
 """ Convolutional Neural Network.
