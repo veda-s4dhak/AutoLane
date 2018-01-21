@@ -1,18 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jan  9 18:10:38 2018
-
-@author: HP_OWNER
-"""
-
-""" Convolutional Neural Network.
-Build and train a convolutional neural network with TensorFlow.
-This example is using TensorFlow layers API, see 'convolutional_network_raw' 
-example for a raw implementation with variables.
-"""
+# ================================ GLOBAL IMPORTS ================================ #
 
 import tensorflow as tf
 import numpy as np
+
+# ================================ GENERAL NOTES ================================ #
 
 # Image dimension is 1080x840
 # Frame size will be: 60x60
@@ -20,6 +11,8 @@ import numpy as np
 
 # Output Format: [P1, bx, by, bh, bw, P2, bx, by, bh, bw]
 # Dimension of output: 18x14x10 
+
+# ================================ CONV NET ================================ #
 
 # Create the neural network
 def conv_net(x_dict, n_classes, dropout, reuse, is_training):
