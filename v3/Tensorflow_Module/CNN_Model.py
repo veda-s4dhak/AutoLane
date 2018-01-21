@@ -1,3 +1,22 @@
+'''
+
+TODO
+
+-> Conv_Net: Change neural network into a class (below are the methods required for the class)
+    -> __Init__(Xiao Lei and Anish): Initialize model parameters (data based on flags, learning rate,
+                                               Tensorflow session, initializes placeholder,
+                                               weights, biases, cost function, saver)
+    -> Train (Anish): Runs the training on the model
+    -> Model (Xiao Lei): Contains the neural network
+    -> Load (Anish): Loads the model for forward propagation
+    -> Save (Xiao Lei): Saves the model during training
+-> Change resolution of neural network to accomodate new dataset
+
+'''
+
+
+
+
 # ================================ GLOBAL IMPORTS ================================ #
 
 import tensorflow as tf
