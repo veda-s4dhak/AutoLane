@@ -22,7 +22,8 @@ global processed_data_path
 processed_data_path = r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\processed_dataset\\'
 
 '''
-Returns: Number of processed images in processed_data_path
+Returns:
+    Number of processed images in processed_data_path
 '''
 def get_num_processed_images():
 
@@ -40,10 +41,10 @@ def get_num_processed_images():
 
 '''
 Input:
-image_num: the number of processed images in processed_data_path
+    image_num: the number of processed images in processed_data_path
 
 Returns:
-Path of image image_num
+    Path of image image_num
 '''
 def get_image_path(image_num):
     return(processed_data_path + r'\processed_{}'.format(image_num) + '.png')
@@ -52,10 +53,10 @@ def get_image_path(image_num):
 Shuffles two np arrays along axis 0 in the same order.
 
 Inputs:
-l1, l2: np arrays to be shuffled in unison
+    l1, l2: np arrays to be shuffled in unison
 
 Output: 
-arrays shuffled in the same order
+    arrays shuffled in the same order
 '''
 def shuffleTwoNPArrays(l1, l2):
     numData = np.arange(l1.shape[0])
@@ -64,7 +65,7 @@ def shuffleTwoNPArrays(l1, l2):
 
 '''
 Returns:
-np array of type float32 containing all the images loaded
+    np array of type float32 containing all the images loaded
 '''
 def Load_Images():
     
@@ -83,14 +84,14 @@ Splits imagesArray into images of type training, cross validation, and testing
 given imaagesArray, nTrain, nValid, nTest
 
 Inputs: 
-imagesArray: numData x l x w x 3 np array of image data of type np.float32
-nTrain: number of training images
-nValid: number of cross validation images
-nTest: number of test images
+    imagesArray: numData x l x w x 3 np array of image data of type np.float32
+    nTrain: number of training images
+    nValid: number of cross validation images
+    nTest: number of test images
 
-Outputs:
-Returns resulting training, validation, and testing images array in an np array
-of type float32
+Returns:
+    Resulting training, validation, and testing images array in an np array
+    of type float32
 '''
 def Split_Data_Set(imagesArray, nTrain, nValid, nTest):
     
