@@ -31,3 +31,13 @@ Main File Pseudo Code (Logical Flow)
         -> Feed predictions into perception screen
     
 '''
+
+import tensorflow as tf
+import numpy as np
+
+flags = tf.app.flags
+FLAGS = flags.FLAGS
+
+flags.DEFINE_boolean("is_train", True, "if training")
+flags.DEFINE_string("checkpoint_dir", "checkpoint", "Name of checkpoint directory")
+flags.DEFINE_string("test_dir", "", "test images directory")
