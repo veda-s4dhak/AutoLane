@@ -16,23 +16,15 @@ import numpy as np
 from PIL import Image
 import copy
 import random
+import time
 
 global processed_data_path
-processed_data_path = r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\processed_dataset\\'
-
-# Specifies Width and Height of our images
-global imgX
-global imgY
-
-# Divisors: 1 2 4 8 43 86 172 344
-imgX = 344
-
-# Divisors: 1 2 3 6 43 86 129 258
-imgY = 258
+processed_data_path = r'C:\\Users\\Veda Sadhak\\Desktop\\processed_dataset'
 
 '''
-Returns: Number of processed images in processed_data_path
+    Returns: Number of processed images in processed_data_path
 '''
+
 def get_num_processed_images():
 
     file_list = os.listdir(processed_data_path)
@@ -61,6 +53,7 @@ Inputs:
 Outputs:
     dataList: list of midpoints for this image
 '''
+
 def get_image_midpoint_data(image_num):
 
     # Getting bounding box data from text file
@@ -109,11 +102,12 @@ Example:
 Returns:
     midPointData: list of midpoint data for each image
 '''
-def Load_Midpoint_Data():
+
+def load_midpoint_data():
     numImages = get_num_processed_images()
     
     midPointData = []
-    for i in range(numImages):
+    for i in range(1,numImages+1):
         midPointData.append(get_image_midpoint_data(i))
     return(midPointData)
 
@@ -122,16 +116,17 @@ Assigns labels to each frame given midPoints, numPartsY,
 and numPartsX.
 
 Inputs:
-        imageNum: numbering of this image in the series
-        midPoints: np array of midpoints of dimension numMidpoints x 2
-        numPartsX: number of frames to split X range
-        numPartsY: number of frames to split Y range
+    imageNum: numbering of this image in the series
+    midPoints: np array of midpoints of dimension numMidpoints x 2
+    numPartsX: number of frames to split X range
+    numPartsY: number of frames to split Y range
         
 Returns:
     Labels: a imgY x imgX dimension np array of 1's and 0's corresponding
     to the labelling of frames in image imageNum
 '''
-def getLabel(imageNum, midPoints, numPartsY, numPartsX, printEnabled = False):
+
+def get_labels(imageNum, midPoints, imgX, imgY, numPartsY, numPartsX, verbose = False):
     
     xSize = float(imgX // numPartsX)
     ySize = float(imgY // numPartsY)
@@ -139,13 +134,13 @@ def getLabel(imageNum, midPoints, numPartsY, numPartsX, printEnabled = False):
     # Gets number of midpoints
     numMidPoints = len(midPoints)
     
-    if(printEnabled):
+    if(verbose):
         print('Number of MidPoints :', numMidPoints)
     # Initializes Used array for midpoints
     Used = [False]*numMidPoints
     
     # Assigns labels of 1 or 0 based on if there's a midpoint inside this frame
-    Labels = np.zeros((numPartsY, numPartsX), dtype=np.float32)
+    label_matrix = np.zeros((numPartsY, numPartsX), dtype=np.int)
     for i in range(numPartsX):
         for j in range(numPartsY):
             xMin = float(i*xSize)
@@ -153,13 +148,14 @@ def getLabel(imageNum, midPoints, numPartsY, numPartsX, printEnabled = False):
             xMax = float(xMin + xSize)
             yMax = float(yMin + ySize)
             
-            if(printEnabled):
+            if(verbose):
                 print('Frame ', j, ' ', i, ' yMin: ', yMin, ' xMin: ', xMin, 'yMax: ', yMax, 'xMax: ', xMax)
             for k in range(len(Used)):
                 if (not Used[k]) and (xMin <= float(midPoints[k][0]) < xMax) and (yMin <= float(midPoints[k][1]) < yMax):
                     Used[k] = True
-                    Labels[j][i] = 1.0
-    return(Labels)
+                    label_matrix[j][i] = 1
+    return(label_matrix)
+
 '''
 Generates the labels matrices for all processed images.
 
@@ -173,21 +169,51 @@ Returns:
     A numImages x imgY x imgX dimension np array of 1's and 0's corresponding
     to the labelling of the frames in each image in series
 '''
-def Generate_Label_Matrix(midPoints, numPartsY, numPartsX, save=True):
+
+def generate_label_matrix(midPoints, imgX, imgY, numPartsY, numPartsX, save=True,verbose=False):
     
     # Gets number of processed images
     numImages = get_num_processed_images()
     
-    labels = np.zeros((numImages, numPartsY, numPartsX)).astype(np.float32)
-    for i in range(numImages):
-        
-        label = getLabel(i, midPoints[i], numPartsY, numPartsX)
-        labels[i, :, :] = copy.deepcopy(label)
-    
-    if save:
-        np.savez('labels.npz', labels = labels)
-    return(labels)
-    
-    
-            
+    label_matrix = np.zeros((numImages, numPartsY, numPartsX)).astype(np.int)
 
+    for i in range(numImages):
+        current_label_matrix = get_labels(i, midPoints[i], imgX, imgY, numPartsY, numPartsX)
+        label_matrix[i, :, :] = copy.deepcopy(current_label_matrix)
+
+    if verbose == True:
+        print("Image 1 Label Matrix")
+        print(label_matrix[0])
+
+    if save:
+        #np.savetxt(processed_data_path + r'\label_matrix.txt', label_matrix, fmt='%d')
+        np.savez(processed_data_path + r'\label_matrix.npz', label_matrix)
+
+    return(label_matrix)
+
+def load_matrix(image_num):
+
+    label_matrix = np.load(processed_data_path + r'\label_matrix.npz')
+    return label_matrix['arr_0'][image_num-1]
+
+# ========================== TEST CODE ========================== #
+
+if __name__ == '__main__':
+
+    num_processed_images = get_num_processed_images()
+    print("Num Processed Images: {}".format(num_processed_images))
+
+    midpoint_data = load_midpoint_data()
+
+    #for index in range(0,len(midpoint_data)):
+    #    print("Image {} Midpoint Data: {}".format(index+1,midpoint_data[index]))
+
+    #label_matrix = get_labels(1, midpoint_data[1], 341,256,20, 15)
+    #print(label_matrix)
+
+    generate_label_matrix(midpoint_data,341,256,20,15,True,False)
+
+    time.sleep(3)
+
+    label_matrix = load_matrix(1)
+    print(label_matrix)
