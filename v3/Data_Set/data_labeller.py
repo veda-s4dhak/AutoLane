@@ -184,10 +184,10 @@ Returns:
     label_matrix: matrix containing the labels
 '''
 
-def load_matrix(image_num):
+def load_matrix():
 
     label_matrix = np.load(processed_data_path + r'\label_matrix.npz')
-    return label_matrix['arr_0'][image_num-1]
+    return label_matrix['arr_0']
 
 # ==================================================== TEST CODE ==================================================== #
 

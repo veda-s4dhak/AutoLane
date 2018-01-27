@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="ba26bedd-696f-4eb8-b772-367335d5ea30" name="Default" comment="" />
+=======
+    <list default="true" id="ba26bedd-696f-4eb8-b772-367335d5ea30" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Data_Set/data_labeller.py" afterPath="$PROJECT_DIR$/v3/Data_Set/data_labeller.py" />
+    </list>
+>>>>>>> 91cba858145794155e7b39f68dd9d3ff08c331c4
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,6 +17,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< HEAD
       <file leaf-file-name="data_set.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_set.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -48,10 +55,13 @@
         </entry>
       </file>
       <file leaf-file-name="data_labeller.py" pinned="false" current-in-tab="false">
+=======
+      <file leaf-file-name="data_labeller.py" pinned="false" current-in-tab="true">
+>>>>>>> 91cba858145794155e7b39f68dd9d3ff08c331c4
         <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_labeller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="189" column="14" lean-forward="false" selection-start-line="189" selection-start-column="14" selection-end-line="189" selection-end-column="14" />
+            <state relative-caret-position="354">
+              <caret line="196" column="0" lean-forward="true" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
                 <element signature="e#146#216#1" expanded="false" />
@@ -60,10 +70,44 @@
                 <element signature="e#894#1886#0" expanded="false" />
                 <element signature="e#1888#2307#1" expanded="false" />
                 <element signature="e#2339#2520#0" expanded="false" />
+                <element signature="e#2522#2968#1" expanded="false" />
                 <element signature="e#3067#4130#0" expanded="false" />
                 <element signature="e#4132#4585#1" expanded="false" />
                 <element signature="e#4693#5254#0" expanded="false" />
                 <element signature="e#5256#5488#1" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="generate_screenshots.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding>
+                <element signature="e#85#112#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="data_set.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_set.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3">
+              <caret line="66" column="1" lean-forward="false" selection-start-line="66" selection-start-column="1" selection-end-line="66" selection-end-column="1" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#156#226#1" expanded="false" />
+                <element signature="e#265#495#0" expanded="false" />
+                <element signature="e#497#618#1" expanded="false" />
+                <element signature="e#655#728#0" expanded="false" />
+                <element signature="e#730#896#1" expanded="false" />
+                <element signature="e#1035#1113#1" expanded="false" />
+                <element signature="e#1436#1876#1" expanded="false" />
+                <element signature="e#2246#2427#1" expanded="false" />
+                <element signature="e#2457#2807#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -103,18 +147,19 @@
         <option value="$PROJECT_DIR$/v2/CNNModel.py" />
         <option value="$PROJECT_DIR$/v2/data_generator.py" />
         <option value="$PROJECT_DIR$/v2/data_set.py" />
-        <option value="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" />
         <option value="$PROJECT_DIR$/v3/main.py" />
         <option value="$PROJECT_DIR$/v3/Tensorflow_Module/CNN_Model.py" />
-        <option value="$PROJECT_DIR$/v3/Data_Set/data_labeller.py" />
         <option value="$PROJECT_DIR$/v3/Data_Set/data_set.py" />
+        <option value="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" />
+        <option value="$PROJECT_DIR$/v3/Data_Set/data_labeller.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="836" />
-    <option name="width" value="1732" />
-    <option name="height" value="1528" />
+    <option name="x" value="3154" />
+    <option name="y" value="-534" />
+    <option name="width" value="1712" />
+    <option name="height" value="1108" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -148,6 +193,12 @@
               <item name="LOL-Autolane" type="462c0819:PsiDirectoryNode" />
               <item name="v3" type="462c0819:PsiDirectoryNode" />
               <item name="Data_Set" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LOL-Autolane" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LOL-Autolane" type="462c0819:PsiDirectoryNode" />
+              <item name="v3" type="462c0819:PsiDirectoryNode" />
+              <item name="Perception" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="LOL-Autolane" type="b2602c69:ProjectViewProjectNode" />
@@ -304,11 +355,21 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+=======
+    <frame x="1916" y="-520" width="1288" height="768" extended-state="6" />
+    <editor active="true" />
+>>>>>>> 91cba858145794155e7b39f68dd9d3ff08c331c4
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16458334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+<<<<<<< HEAD
+=======
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32937685" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5341246" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+>>>>>>> 91cba858145794155e7b39f68dd9d3ff08c331c4
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5341246" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -321,7 +382,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -406,11 +466,8 @@
             <element signature="e#497#618#1" expanded="false" />
             <element signature="e#655#728#0" expanded="false" />
             <element signature="e#730#896#1" expanded="false" />
-            <element signature="e#934#1033#0" expanded="false" />
             <element signature="e#1035#1113#1" expanded="false" />
-            <element signature="e#1143#1434#0" expanded="false" />
             <element signature="e#1436#1876#1" expanded="false" />
-            <element signature="e#1943#2240#0" expanded="false" />
             <element signature="e#2246#2427#1" expanded="false" />
             <element signature="e#2457#2807#0" expanded="false" />
           </folding>
@@ -494,10 +551,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="96" column="18" lean-forward="false" selection-start-line="96" selection-start-column="18" selection-end-line="96" selection-end-column="18" />
+<<<<<<< HEAD
         </state>
       </provider>
     </entry>
     <entry file="file://C:/Python35/Lib/site-packages/numpy/lib/npyio.py" />
+=======
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python35/Lib/site-packages/numpy/lib/npyio.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1438">
+          <caret line="1257" column="0" lean-forward="false" selection-start-line="1257" selection-start-column="0" selection-end-line="1257" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> 91cba858145794155e7b39f68dd9d3ff08c331c4
     <entry file="file://$PROJECT_DIR$/v3/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -505,10 +577,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#85#112#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_set.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="17">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+=======
+        <state relative-caret-position="-3">
+          <caret line="66" column="1" lean-forward="false" selection-start-line="66" selection-start-column="1" selection-end-line="66" selection-end-column="1" />
+>>>>>>> 91cba858145794155e7b39f68dd9d3ff08c331c4
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#156#226#1" expanded="false" />
+            <element signature="e#265#495#0" expanded="false" />
+            <element signature="e#497#618#1" expanded="false" />
+            <element signature="e#655#728#0" expanded="false" />
+            <element signature="e#730#896#1" expanded="false" />
+            <element signature="e#1035#1113#1" expanded="false" />
+            <element signature="e#1436#1876#1" expanded="false" />
+            <element signature="e#2246#2427#1" expanded="false" />
+            <element signature="e#2457#2807#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="7" lean-forward="false" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+          <folding>
+            <element signature="e#85#112#0" expanded="true" />
+=======
     <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_labeller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="189" column="14" lean-forward="false" selection-start-line="189" selection-start-column="14" selection-end-line="189" selection-end-column="14" />
+        <state relative-caret-position="354">
+          <caret line="196" column="0" lean-forward="true" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
             <element signature="e#146#216#1" expanded="false" />
@@ -517,42 +631,12 @@
             <element signature="e#894#1886#0" expanded="false" />
             <element signature="e#1888#2307#1" expanded="false" />
             <element signature="e#2339#2520#0" expanded="false" />
+            <element signature="e#2522#2968#1" expanded="false" />
             <element signature="e#3067#4130#0" expanded="false" />
             <element signature="e#4132#4585#1" expanded="false" />
             <element signature="e#4693#5254#0" expanded="false" />
             <element signature="e#5256#5488#1" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_set.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#156#226#1" expanded="false" />
-            <element signature="e#265#495#0" expanded="false" />
-            <element signature="e#497#618#1" expanded="false" />
-            <element signature="e#655#728#0" expanded="false" />
-            <element signature="e#730#896#1" expanded="false" />
-            <element signature="e#934#1033#0" expanded="false" />
-            <element signature="e#1035#1113#1" expanded="false" />
-            <element signature="e#1143#1434#0" expanded="false" />
-            <element signature="e#1436#1876#1" expanded="false" />
-            <element signature="e#1943#2240#0" expanded="false" />
-            <element signature="e#2246#2427#1" expanded="false" />
-            <element signature="e#2457#2807#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="7" lean-forward="false" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
-          <folding>
-            <element signature="e#85#112#0" expanded="true" />
+>>>>>>> 91cba858145794155e7b39f68dd9d3ff08c331c4
           </folding>
         </state>
       </provider>
