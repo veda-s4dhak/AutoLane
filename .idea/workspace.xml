@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba26bedd-696f-4eb8-b772-367335d5ea30" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Data_Set/data_labeller.py" afterPath="$PROJECT_DIR$/v3/Data_Set/data_labeller.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Data_Set/data_set.py" afterPath="$PROJECT_DIR$/v3/Data_Set/data_set.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,36 +13,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="data_set.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="data_set.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_set.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="142" column="24" lean-forward="true" selection-start-line="142" selection-start-column="24" selection-end-line="142" selection-end-column="24" />
+            <state relative-caret-position="34">
+              <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <element signature="e#182#252#1" expanded="false" />
-                <element signature="e#291#521#0" expanded="false" />
-                <element signature="e#523#644#1" expanded="false" />
-                <element signature="e#681#754#0" expanded="false" />
-                <element signature="e#756#922#1" expanded="false" />
-                <element signature="e#960#1059#0" expanded="false" />
-                <element signature="e#1061#1139#1" expanded="false" />
-                <element signature="e#1169#1460#0" expanded="false" />
-                <element signature="e#1462#1902#1" expanded="false" />
-                <element signature="e#1969#2266#0" expanded="false" />
-                <element signature="e#2272#2453#1" expanded="false" />
-                <element signature="e#2483#2833#0" expanded="false" />
+                <element signature="e#156#226#1" expanded="false" />
+                <element signature="e#265#495#0" expanded="false" />
+                <element signature="e#497#618#1" expanded="false" />
+                <element signature="e#655#728#0" expanded="false" />
+                <element signature="e#730#896#1" expanded="false" />
+                <element signature="e#934#1033#0" expanded="false" />
+                <element signature="e#1035#1113#1" expanded="false" />
+                <element signature="e#1143#1434#0" expanded="false" />
+                <element signature="e#1436#1876#1" expanded="false" />
+                <element signature="e#1943#2240#0" expanded="false" />
+                <element signature="e#2246#2427#1" expanded="false" />
+                <element signature="e#2457#2807#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="data_labeller.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="data_labeller.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_labeller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+            <state relative-caret-position="765">
+              <caret line="189" column="14" lean-forward="false" selection-start-line="189" selection-start-column="14" selection-end-line="189" selection-end-column="14" />
               <folding>
+                <element signature="e#0#9#0" expanded="true" />
                 <element signature="e#146#216#1" expanded="false" />
                 <element signature="e#255#485#0" expanded="false" />
                 <element signature="e#487#847#1" expanded="false" />
@@ -95,8 +96,8 @@
         <option value="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" />
         <option value="$PROJECT_DIR$/v3/main.py" />
         <option value="$PROJECT_DIR$/v3/Tensorflow_Module/CNN_Model.py" />
-        <option value="$PROJECT_DIR$/v3/Data_Set/data_set.py" />
         <option value="$PROJECT_DIR$/v3/Data_Set/data_labeller.py" />
+        <option value="$PROJECT_DIR$/v3/Data_Set/data_set.py" />
       </list>
     </option>
   </component>
@@ -342,18 +343,18 @@
           <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#182#252#1" expanded="false" />
-            <element signature="e#291#521#0" expanded="false" />
-            <element signature="e#523#644#1" expanded="false" />
-            <element signature="e#681#754#0" expanded="false" />
-            <element signature="e#756#922#1" expanded="false" />
-            <element signature="e#960#1059#0" expanded="false" />
-            <element signature="e#1061#1139#1" expanded="false" />
-            <element signature="e#1169#1460#0" expanded="false" />
-            <element signature="e#1462#1902#1" expanded="false" />
-            <element signature="e#1969#2266#0" expanded="false" />
-            <element signature="e#2272#2453#1" expanded="false" />
-            <element signature="e#2483#2833#0" expanded="false" />
+            <element signature="e#156#226#1" expanded="false" />
+            <element signature="e#265#495#0" expanded="false" />
+            <element signature="e#497#618#1" expanded="false" />
+            <element signature="e#655#728#0" expanded="false" />
+            <element signature="e#730#896#1" expanded="false" />
+            <element signature="e#934#1033#0" expanded="false" />
+            <element signature="e#1035#1113#1" expanded="false" />
+            <element signature="e#1143#1434#0" expanded="false" />
+            <element signature="e#1436#1876#1" expanded="false" />
+            <element signature="e#1943#2240#0" expanded="false" />
+            <element signature="e#2246#2427#1" expanded="false" />
+            <element signature="e#2457#2807#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -470,33 +471,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_set.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="142" column="24" lean-forward="true" selection-start-line="142" selection-start-column="24" selection-end-line="142" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#182#252#1" expanded="false" />
-            <element signature="e#291#521#0" expanded="false" />
-            <element signature="e#523#644#1" expanded="false" />
-            <element signature="e#681#754#0" expanded="false" />
-            <element signature="e#756#922#1" expanded="false" />
-            <element signature="e#960#1059#0" expanded="false" />
-            <element signature="e#1061#1139#1" expanded="false" />
-            <element signature="e#1169#1460#0" expanded="false" />
-            <element signature="e#1462#1902#1" expanded="false" />
-            <element signature="e#1969#2266#0" expanded="false" />
-            <element signature="e#2272#2453#1" expanded="false" />
-            <element signature="e#2483#2833#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_labeller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+        <state relative-caret-position="765">
+          <caret line="189" column="14" lean-forward="false" selection-start-line="189" selection-start-column="14" selection-end-line="189" selection-end-column="14" />
           <folding>
+            <element signature="e#0#9#0" expanded="true" />
             <element signature="e#146#216#1" expanded="false" />
             <element signature="e#255#485#0" expanded="false" />
             <element signature="e#487#847#1" expanded="false" />
@@ -507,6 +487,28 @@
             <element signature="e#4132#4585#1" expanded="false" />
             <element signature="e#4693#5254#0" expanded="false" />
             <element signature="e#5256#5488#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_set.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#156#226#1" expanded="false" />
+            <element signature="e#265#495#0" expanded="false" />
+            <element signature="e#497#618#1" expanded="false" />
+            <element signature="e#655#728#0" expanded="false" />
+            <element signature="e#730#896#1" expanded="false" />
+            <element signature="e#934#1033#0" expanded="false" />
+            <element signature="e#1035#1113#1" expanded="false" />
+            <element signature="e#1143#1434#0" expanded="false" />
+            <element signature="e#1436#1876#1" expanded="false" />
+            <element signature="e#1943#2240#0" expanded="false" />
+            <element signature="e#2246#2427#1" expanded="false" />
+            <element signature="e#2457#2807#0" expanded="false" />
           </folding>
         </state>
       </provider>
