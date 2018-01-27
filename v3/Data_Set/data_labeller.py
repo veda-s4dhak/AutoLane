@@ -1,16 +1,3 @@
-'''
-
-TODO
-
-Clean up is basically change varable name and add comments
-
--> Load_Midpoint_Data (Already implemented - clean up) (Xiao Lei): Function to load midpoint data from text files
--> Generate_Label_Matrix (Xiao Lei): Function to generate label matrix from a single image (saves label matrix into a npz file)
--> Load_Output_Labels (Anish): Function to load the npz file containing output label matrixes
--> In the main function iterate through all the images and create label matrixes
-
-'''
-
 import os
 import numpy as np
 from PIL import Image
@@ -186,17 +173,28 @@ def generate_label_matrix(midPoints, imgX, imgY, numPartsY, numPartsX, save=True
         print(label_matrix[0])
 
     if save:
-        #np.savetxt(processed_data_path + r'\label_matrix.txt', label_matrix, fmt='%d')
         np.savez(processed_data_path + r'\label_matrix.npz', label_matrix)
 
     return(label_matrix)
+
+'''
+Loads the labels matrices for all processed images from an .npz file
+
+Inputs:
+    image_num: this is the number of the image of which you which to get the label matrix
+
+Returns:
+    label_matrix: matrix containing the labels
+'''
 
 def load_matrix(image_num):
 
     label_matrix = np.load(processed_data_path + r'\label_matrix.npz')
     return label_matrix['arr_0'][image_num-1]
 
-# ========================== TEST CODE ========================== #
+# ==================================================== TEST CODE ==================================================== #
+
+'''
 
 if __name__ == '__main__':
 
@@ -217,3 +215,5 @@ if __name__ == '__main__':
 
     label_matrix = load_matrix(1)
     print(label_matrix)
+
+'''
