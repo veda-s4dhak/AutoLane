@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba26bedd-696f-4eb8-b772-367335d5ea30" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/v3/Data_Set/labels.npz" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" afterPath="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="data_labeller.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="data_labeller.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_labeller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="38" column="3" lean-forward="true" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
+            <state relative-caret-position="612">
+              <caret line="215" column="3" lean-forward="true" selection-start-line="215" selection-start-column="3" selection-end-line="215" selection-end-column="3" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
                 <element signature="e#146#216#1" expanded="false" />
@@ -32,6 +32,18 @@
                 <element signature="e#4693#5254#0" expanded="false" />
                 <element signature="e#5256#5488#1" expanded="false" />
                 <element signature="e#5758#6327#1" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="generate_screenshots.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding>
+                <element signature="e#85#112#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -71,11 +83,11 @@
         <option value="$PROJECT_DIR$/v2/CNNModel.py" />
         <option value="$PROJECT_DIR$/v2/data_generator.py" />
         <option value="$PROJECT_DIR$/v2/data_set.py" />
-        <option value="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" />
         <option value="$PROJECT_DIR$/v3/main.py" />
         <option value="$PROJECT_DIR$/v3/Tensorflow_Module/CNN_Model.py" />
         <option value="$PROJECT_DIR$/v3/Data_Set/data_labeller.py" />
         <option value="$PROJECT_DIR$/v3/Data_Set/data_set.py" />
+        <option value="$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py" />
       </list>
     </option>
   </component>
@@ -118,6 +130,12 @@
               <item name="LOL-Autolane" type="462c0819:PsiDirectoryNode" />
               <item name="v3" type="462c0819:PsiDirectoryNode" />
               <item name="Data_Set" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LOL-Autolane" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LOL-Autolane" type="462c0819:PsiDirectoryNode" />
+              <item name="v3" type="462c0819:PsiDirectoryNode" />
+              <item name="Perception" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="LOL-Autolane" type="b2602c69:ProjectViewProjectNode" />
@@ -431,16 +449,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
-          <folding>
-            <element signature="e#85#112#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/v3/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -473,8 +481,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/v3/Data_Set/data_labeller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="38" column="3" lean-forward="true" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
+        <state relative-caret-position="612">
+          <caret line="215" column="3" lean-forward="true" selection-start-line="215" selection-start-column="3" selection-end-line="215" selection-end-column="3" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
             <element signature="e#146#216#1" expanded="false" />
@@ -489,6 +497,16 @@
             <element signature="e#4693#5254#0" expanded="false" />
             <element signature="e#5256#5488#1" expanded="false" />
             <element signature="e#5758#6327#1" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/v3/Screen_Capture/generate_screenshots.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#85#112#0" expanded="true" />
           </folding>
         </state>
       </provider>
