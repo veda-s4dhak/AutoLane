@@ -1,30 +1,17 @@
-'''
-
-TODO
-
-Clean up is basically change varable name and add comments
-
--> Load_Images (Already Implemented - clean up) (Xiao Lei): Function to load images (returns images in an array)
-
-
--> Generate_Pixels (Already Implement - clean up) (Anish): Function to generate pixels given an image
--> Split_Data_Set (Already Implement - clean up) (Xiao Lei: Function to split image set (returns training and testing arrays)
-
-'''
 import os
 import numpy as np
 from PIL import Image
-import py_pixel as p
 import copy
 import random
 
 global processed_data_path
-processed_data_path = r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\processed_dataset\\'
+processed_data_path = r'C:\\Users\\Veda Sadhak\\Desktop\\processed_dataset'
 
 '''
 Returns:
     Number of processed images in processed_data_path
 '''
+
 def get_num_processed_images():
 
     file_list = os.listdir(processed_data_path)
@@ -38,7 +25,6 @@ def get_num_processed_images():
 
     return len(valid_file_list)
 
-
 '''
 Input:
     image_num: the number of processed images in processed_data_path
@@ -46,6 +32,7 @@ Input:
 Returns:
     Path of image image_num
 '''
+
 def get_image_path(image_num):
     return(processed_data_path + r'\processed_{}'.format(image_num) + '.png')
 
@@ -58,6 +45,7 @@ Inputs:
 Output: 
     arrays shuffled in the same order
 '''
+
 def shuffleTwoNPArrays(l1, l2):
     numData = np.arange(l1.shape[0])
     np.random.shuffle(numData)
@@ -67,15 +55,16 @@ def shuffleTwoNPArrays(l1, l2):
 Returns:
     np array of type float32 containing all the images loaded
 '''
-def Load_Images():
+
+def load_images():
     
     numImagesTotal = get_num_processed_images()
     imgList = []
-    for i in range(numImagesTotal):
+    for i in range(1,numImagesTotal+1):
         
         # Gets image
         image = Image.open(get_image_path(i))
-        pixels = p.get_pixels(image)
+        pixels = get_pixels(image)
         imgList.append(pixels)
     return(np.array(imgList).astype(np.float32))
 
@@ -93,7 +82,8 @@ Returns:
     Resulting training, validation, and testing images array in an np array
     of type float32
 '''
-def Split_Data_Set(imagesArray, nTrain, nValid, nTest):
+
+def split_data_set(imagesArray, nTrain, nValid, nTest):
     
     splitInfo = [nTrain, nValid, nTest]
     splitInfoNP = np.array(splitInfo).astype(np.int32)
@@ -104,5 +94,55 @@ def Split_Data_Set(imagesArray, nTrain, nValid, nTest):
     splitFrames = np.split(imagesArray, cumSplitInfo, 0)
     return(splitFrames)
     
+'''
+Returns RGB pixels given an image
+
+Inputs: 
+    image: image which is being processed
+
+Returns:
+    rgb_data: return matrix containing RGB values corresponding to image
     
-    
+'''
+
+def get_pixels(image):
+
+    rgb_im = image.convert()
+    x_max, y_max = rgb_im.size
+
+    rgb_data = [[0 for y in range(y_max)] for x in range(x_max)]
+
+    for x in range(0, x_max):
+        for y in range(0, y_max):
+            r, g, b = rgb_im.getpixel((x, y))
+
+            r = r
+            g = g
+            b = b
+
+            rgb_data[x][y] = ([r, g, b])
+
+    return rgb_data
+
+# ==================================================== TEST CODE ==================================================== #
+
+'''
+
+if __name__ == '__main__':
+
+    num_processed_images = get_num_processed_images()
+    print('Num Processed Images: {}'.format(num_processed_images))
+
+    images = load_images()
+    print("Num Images: {}".format(len(images)))
+    print("Image Width: {}".format(len(images[0])))
+    print("Image Height: {}".format(len(images[0][0])))
+
+    split_frames = split_data_set(images,10,5,5)
+    print("Num of Frames: ".format(len(split_frames)))
+    print("Num of Training Frames: {}".format(len(split_frames[0])))
+    print("Num of Validation Frames: {}".format(len(split_frames[1])))
+    print("Num of Test Frames: {}".format(len(split_frames[2])))
+    print("Check: {}".format(len(split_frames[3])))
+
+'''
