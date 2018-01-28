@@ -51,3 +51,7 @@ def main(_): #?
                       is_train = FLAGS.is_train,
                       test_dir = FLAGS.test_dir
                       )
+        model.train(FLAGS)
+        
+if __name__=='__main__':
+    tf.app.run() # parse the command argument , the call the main function
