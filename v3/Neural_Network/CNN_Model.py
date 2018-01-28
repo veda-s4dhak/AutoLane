@@ -23,6 +23,10 @@ import os
 
 # ================================ LOCAL IMPORTS ================================ #
 
+import sys
+
+sys.path.insert(0, r'C:\\Users\\Veda Sadhak\\Desktop\\LOL-Autolane\\v3\\Data_Set')
+
 import data_labeller as dlb
 import data_set as ds
 
