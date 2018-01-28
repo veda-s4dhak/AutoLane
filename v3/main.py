@@ -42,7 +42,7 @@ from CNN_Model import CNN_Model
 
 sys.path.insert(0, r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\v3\\Perception')
 import perception as p
-from matplotlib import pyplot
+import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
 flags = tf.app.flags
@@ -68,11 +68,12 @@ if __name__=='__main__':
     
     screen_size_x = 344
     screen_size_y = 258
-    perception_screen = p.perception_screen(screen_size_x, screen_size_y)
+    
 
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
     with tf.Session(config=config) as sess:
+        #perception_screen = p.perception_screen(screen_size_x, screen_size_y)
         model = CNN_Model(sess,
                       is_train = FLAGS.is_train,
                       test_dir = FLAGS.test_dir,
@@ -83,15 +84,34 @@ if __name__=='__main__':
             model.runRealTime(FLAGS)
             
             for i in range(16):    
+                
                 result = model.pred.eval({model.images: np.expand_dims(model.shuffled_images[1][i], 0)})
+                print('Test Image: ', i)
+                print('Result:')
+                print(result)
                 #print(result)
                 labelMat = (result > 0.5).astype(np.integer)
                 #print(np.shape(labelMat))
                 labelMat = np.squeeze(labelMat,axis=0)
                 labelMat = np.squeeze(labelMat, axis=2)
+                
+                print('Threshold Filtered Result')
+                print(labelMat)
+                
+                
+                
+                correctAnswer = model.shuffled_label_matrix[1][i]
+                correctAnswer = np.squeeze(correctAnswer,axis=2)
+                #labelMat = np.squeeze(correctAnswer, axis=2)
+                
+                print('Correct Answer:')
+                print(correctAnswer)
+                
                 #perception_screen.draw_matrix(labelMat)
-                pyplot.imshow(model.shuffled_images[1][i])
-                time.sleep(5)
-            
+                plt.imshow(model.shuffled_images[1][i])
+                plt.show()
+                time.sleep(1)
+            plt.close()
         else:
             model.train(FLAGS)
+            
