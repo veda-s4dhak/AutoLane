@@ -109,17 +109,17 @@ def get_pixels(image):
     rgb_im = image.convert()
     x_max, y_max = rgb_im.size
 
-    rgb_data = [[0 for x in range(x_max)] for y in range(y_max)]
+    rgb_data = [[0 for y in range(y_max)] for x in range(x_max)]
 
     for x in range(0, x_max):
         for y in range(0, y_max):
             r, g, b = rgb_im.getpixel((x, y))
 
-            r = r/255.0
-            g = g/255.0
-            b = b/255.0
+            r = r
+            g = g
+            b = b
 
-            rgb_data[y][x] = ([r, g, b])
+            rgb_data[x][y] = ([r, g, b])
 
     return rgb_data
 '''
