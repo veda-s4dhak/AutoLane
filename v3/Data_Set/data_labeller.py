@@ -206,7 +206,7 @@ def load_matrix():
     #label_matrix = get_labels(1, midpoint_data[1], 341,256,20, 15)
     #print(label_matrix)
 
-    generate_label_matrix(midpoint_data,344,258,8,6,True,False)
+    generate_label_matrix(midpoint_data,344,258,6,8,True,False)
 
     time.sleep(3)
 

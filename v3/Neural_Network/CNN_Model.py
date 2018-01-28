@@ -57,10 +57,10 @@ class CNN_Model(object):
         self.test_dir = test_dir
 
         # Specifies image parameters
-        self.imageHeight = 344
-        self.imageWidth = 258
-        self.numPartsX = 6 #TODO check how big bounding boxes are in general
-        self.numPartsY = 8
+        self.imageHeight = 258
+        self.imageWidth = 344
+        self.numPartsX = 8 #TODO check how big bounding boxes are in general
+        self.numPartsY = 6
 
         self.images = tf.placeholder(tf.float32,[None,self.imageHeight,self.imageWidth,3],name='images')
         self.labels = tf.placeholder(tf.float32,[None,self.numPartsY,self.numPartsX,1],name='labels')
@@ -68,7 +68,7 @@ class CNN_Model(object):
         # Specifies training parameters
         self.epoch = 400
         self.batch_size = 3
-        self.learning_rate = 1e-10
+        self.learning_rate = 1e-5
         self.drop_prob = 0.25
 
         # Creates the model
@@ -92,7 +92,7 @@ class CNN_Model(object):
     
         initializer = tf.contrib.layers.xavier_initializer_conv2d()
     
-        # Input is a 344 x 258 x 3 size image
+        # Input is a 258 x 344 x 3 size image
         x = tf.reshape(x, shape=[-1, self.imageHeight, self.imageWidth, 3])
     
         # Convolution Layer with 15 filters and a kernel size of 5
@@ -101,36 +101,36 @@ class CNN_Model(object):
                                     bias_initializer = initializer)
     
         # Max Pooling (down-sampling) with strides of 2 and kernel size of 2
-        # Output: 170 x 127 x 15
+        # Output: 127 x 170 x 15
         conv1 = tf.layers.max_pooling2d(conv1, 2, 2)
     
         # Convolution Layer with 15 filters and a kernel size of 3
-        # Output: 168x125x15
+        # Output: 125x168x15
         conv2 = tf.layers.conv2d(conv1, 15, 3, activation=tf.keras.layers.LeakyReLU(0.01), kernel_initializer = initializer,
                                     bias_initializer = initializer)
     
         # Max Pooling (down-sampling) with strides of 2 and kernel size of 2
-        # Output: 84x62x15
+        # Output: 62x15
         conv2 = tf.layers.max_pooling2d(conv2, 2, 2)
     
     
-        # Output: 17x13x15
-        conv3 = tf.layers.conv2d(conv2, 15, (68, 50), activation=tf.keras.layers.LeakyReLU(0.01), kernel_initializer = initializer,
+        # Output: 13x17x15
+        conv3 = tf.layers.conv2d(conv2, 15, (50, 68), activation=tf.keras.layers.LeakyReLU(0.01), kernel_initializer = initializer,
                                     bias_initializer = initializer)
     
-        # Output: 8x6x15
+        # Output: 6x8x15
         conv3 = tf.layers.max_pooling2d(conv3, 2, 2)
     
         # Fully connected layers using conv layers
-        # Output: 8x6x1000
+        # Output: 6x8x1000
         conv4 = tf.layers.conv2d(conv3, 1000, 1, activation=None, kernel_initializer = initializer,
                                     bias_initializer = initializer)
     
-        # Output: 8x6x1000
+        # Output: 6x8x1000
         conv5 = tf.layers.conv2d(conv4, 1000, 1, activation=None, kernel_initializer = initializer,
                                     bias_initializer = initializer)
     
-        # Output: 8x6x1
+        # Output: 6x8x1
         conv6 = tf.layers.conv2d(conv5, 1, 1, activation = tf.sigmoid, kernel_initializer = initializer,
                                     bias_initializer = initializer)
     
