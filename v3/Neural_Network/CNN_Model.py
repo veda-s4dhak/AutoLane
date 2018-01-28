@@ -22,6 +22,7 @@ import time
 import os
 import copy as cp
 
+
 # ================================ LOCAL IMPORTS ================================ #
 
 import sys
@@ -48,9 +49,11 @@ class CNN_Model(object):
                 sess,
                 is_train,
                 test_dir,
+                is_realTime
                 ):
         self.sess = sess
         self.is_train = is_train
+        self.is_realTime = is_realTime
         self.test_dir = test_dir
 
         # Specifies image parameters
@@ -73,6 +76,13 @@ class CNN_Model(object):
         # self.loss = -tf.reduce_mean(self.labels*tf.log(self.pred+1e-10) + (1-self.labels)*tf.log(1-(self.pred+1e-10)))/self.batch_size
         self.loss = tf.reduce_mean(tf.square(self.labels - self.pred))
         self.saver = tf.train.Saver()
+        
+        images =  ds.load_images()
+        label_matrix = dlb.load_matrix()
+        self.shuffled_images, self.shuffled_label_matrix = ds.prepareDataSet(images, label_matrix, 18, 18, 0)
+        
+        self.shuffled_label_matrix[0] = cp.deepcopy(self.shuffled_label_matrix[0].reshape((-1, self.numPartsY, self.numPartsX, 1)))
+        self.shuffled_label_matrix[1] = cp.deepcopy(self.shuffled_label_matrix[1].reshape((-1, self.numPartsY, self.numPartsX, 1)))
 
     # Create the network architecture (we feed this into the train function)
    def conv_net(self):
@@ -130,7 +140,25 @@ class CNN_Model(object):
         # out = tf.reshape(conv6, [-1,1])
     
         return out
+   def runRealTime(self, config):
+       '''images =  ds.load_images()
+       label_matrix = dlb.load_matrix()
+       self.shuffled_images, self.shuffled_label_matrix = ds.prepareDataSet(images, label_matrix, 18, 18, 0)
+        
+       self.shuffled_label_matrix[0] = cp.deepcopy(self.shuffled_label_matrix[0].reshape((-1, self.numPartsY, self.numPartsX, 1)))
+       self.shuffled_label_matrix[1] = cp.deepcopy(self.shuffled_label_matrix[1].reshape((-1, self.numPartsY, self.numPartsX, 1)))
+       print(len(self.shuffled_images), len(self.shuffled_label_matrix))'''
+       self.sess.run(tf.global_variables_initializer())
+       
+       counter = 0
+       time_ = time.time()
     
+       self.load(config.checkpoint_dir)
+       
+       print("Now Start Realtime Running...")
+       
+       
+       
    def train(self, config):
     
         # NOTE : if train, the nx, ny are ingnored

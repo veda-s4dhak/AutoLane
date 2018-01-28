@@ -65,7 +65,7 @@ class perception_screen():
         matrix_dim = np.shape(matrix)
         if len(matrix_dim) != 2:
             valid_matrix = 0
-            print("Error: Cannot update perception screen, invalid matrix.")
+            print("Error: Cannot update perception screen, invalid matrix -> matrix len: {}".format(len(matrix_dim)))
 
         if valid_matrix == 1:
             # Getting frame sizes
