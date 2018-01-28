@@ -1,6 +1,7 @@
 import os
 import numpy as np
 from PIL import Image
+import data_labeller as dlb
 
 global processed_data_path
 processed_data_path = r'C:\\Users\\Veda Sadhak\\Desktop\\processed_dataset'
@@ -121,7 +122,28 @@ def get_pixels(image):
             rgb_data[x][y] = ([r, g, b])
 
     return rgb_data
-
+'''
+Prepares data set given imgArray and labelsArray
+Inputs:
+    imgArray
+    labelsArray
+    nTrain
+    nValid
+    nTest
+Returns:
+    Tuple containing:
+    splitImg: splitted image arrays in an np array
+    splitLabels: splitted labels arrays in an np array
+'''
+def prepareDataSet(imgArray, labelsArray, nTrain, nValid, nTest):
+    
+    imgArrayNew, labelsArrayNew = shuffleTwoNPArrays(imgArray, labelsArray)
+    
+    splitImg = split_data_set(imgArrayNew, nTrain, nValid, nTest)
+    splitLabels = split_data_set(labelsArrayNew, nTrain, nValid, nTest)
+    
+    return splitImg, splitLabels
+    
 # ==================================================== TEST CODE ==================================================== #
 
 '''
