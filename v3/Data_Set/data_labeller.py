@@ -3,7 +3,7 @@ import numpy as np
 import copy
 
 global processed_data_path
-processed_data_path = r'C:\\Users\\Veda Sadhak\\Desktop\\processed_dataset'
+processed_data_path = r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\processed_dataset'
 
 '''
     Returns: Number of processed images in processed_data_path
@@ -91,7 +91,7 @@ def load_midpoint_data():
     numImages = get_num_processed_images()
     
     midPointData = []
-    for i in range(1,numImages+1):
+    for i in range(numImages):
         midPointData.append(get_image_midpoint_data(i))
     return(midPointData)
 
@@ -124,7 +124,7 @@ def get_labels(imageNum, midPoints, imgX, imgY, numPartsY, numPartsX, verbose = 
     Used = [False]*numMidPoints
     
     # Assigns labels of 1 or 0 based on if there's a midpoint inside this frame
-    label_matrix = np.zeros((numPartsY, numPartsX), dtype=np.int)
+    label_matrix = np.zeros((numPartsY, numPartsX), dtype=np.float32)
     for i in range(numPartsX):
         for j in range(numPartsY):
             xMin = float(i*xSize)
@@ -159,7 +159,7 @@ def generate_label_matrix(midPoints, imgX, imgY, numPartsY, numPartsX, save=True
     # Gets number of processed images
     numImages = get_num_processed_images()
     
-    label_matrix = np.zeros((numImages, numPartsY, numPartsX)).astype(np.int)
+    label_matrix = np.zeros((numImages, numPartsY, numPartsX)).astype(np.float32)
 
     for i in range(numImages):
         current_label_matrix = get_labels(i, midPoints[i], imgX, imgY, numPartsY, numPartsX)
@@ -191,9 +191,9 @@ def load_matrix():
 
 # ==================================================== TEST CODE ==================================================== #
 
-'''
 
-if __name__ == '__main__':
+
+'''if __name__ == '__main__':
 
     num_processed_images = get_num_processed_images()
     print("Num Processed Images: {}".format(num_processed_images))
@@ -206,11 +206,10 @@ if __name__ == '__main__':
     #label_matrix = get_labels(1, midpoint_data[1], 341,256,20, 15)
     #print(label_matrix)
 
-    generate_label_matrix(midpoint_data,341,256,20,15,True,False)
+    generate_label_matrix(midpoint_data,344,258,8,6,True,False)
 
     time.sleep(3)
 
-    label_matrix = load_matrix(1)
-    print(label_matrix)
+    label_matrix = load_matrix()
+    print(label_matrix)'''
 
-'''

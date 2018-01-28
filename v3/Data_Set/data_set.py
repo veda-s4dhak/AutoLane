@@ -4,7 +4,7 @@ from PIL import Image
 import data_labeller as dlb
 
 global processed_data_path
-processed_data_path = r'C:\\Users\\Veda Sadhak\\Desktop\\processed_dataset'
+processed_data_path = r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\processed_dataset'
 
 '''
 Returns:
@@ -59,7 +59,7 @@ def load_images():
     
     numImagesTotal = get_num_processed_images()
     imgList = []
-    for i in range(1,numImagesTotal+1):
+    for i in range(numImagesTotal):
         
         # Gets image
         image = Image.open(get_image_path(i))

@@ -34,6 +34,9 @@ Main File Pseudo Code (Logical Flow)
 
 import tensorflow as tf
 import numpy as np
+import sys
+
+sys.path.insert(0, 'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\v3\\Neural_Network')
 from CNN_Model import CNN_Model
 
 flags = tf.app.flags
