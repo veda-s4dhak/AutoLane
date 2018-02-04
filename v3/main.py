@@ -37,10 +37,10 @@ import numpy as np
 import sys
 import time
 
-sys.path.insert(0, 'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\v3\\Neural_Network')
+sys.path.insert(0, r'C:\\Users\\Veda Sadhak\\Desktop\\LOL-Autolane\\v3\\Neural_Network')
 from CNN_Model import CNN_Model
 
-sys.path.insert(0, r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\v3\\Perception')
+sys.path.insert(0, r'C:\\Users\\Veda Sadhak\\Desktop\\LOL-Autolane\\v3\\Perception')
 import perception as p
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
@@ -48,10 +48,10 @@ import matplotlib.image as mpimg
 flags = tf.app.flags
 FLAGS = flags.FLAGS
 
-flags.DEFINE_boolean("is_train", True, "if training")
+flags.DEFINE_boolean("is_train", False, "if training")
 flags.DEFINE_string("checkpoint_dir", "checkpoint", "Name of checkpoint directory")
 flags.DEFINE_string("test_dir", "", "test images directory")
-flags.DEFINE_boolean("is_realTime", False, "real time running")
+flags.DEFINE_boolean("is_realTime", True, "real time running")
 
 '''def main(_): #?
     config = tf.ConfigProto()
@@ -83,8 +83,7 @@ if __name__=='__main__':
             # model.runRealTime(FLAGS)
             model.runRealTime(FLAGS)
             
-            for i in range(16):    
-                
+            for i in range(0,49):
                 result = model.pred.eval({model.images: np.expand_dims(model.shuffled_images[1][i], 0)})
                 print('Test Image: ', i)
                 print('Result:')
@@ -97,8 +96,6 @@ if __name__=='__main__':
                 
                 print('Threshold Filtered Result')
                 print(labelMat)
-                
-                
                 
                 correctAnswer = model.shuffled_label_matrix[1][i]
                 correctAnswer = np.squeeze(correctAnswer,axis=2)

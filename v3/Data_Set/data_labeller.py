@@ -1,9 +1,10 @@
 import os
 import numpy as np
 import copy
+import time
 
 global processed_data_path
-processed_data_path = r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\processed_dataset'
+processed_data_path = r'C:\\Users\\Veda Sadhak\\Desktop\\processed_dataset'
 
 '''
     Returns: Number of processed images in processed_data_path
@@ -91,7 +92,7 @@ def load_midpoint_data():
     numImages = get_num_processed_images()
     
     midPointData = []
-    for i in range(numImages):
+    for i in range(0,numImages):
         midPointData.append(get_image_midpoint_data(i))
     return(midPointData)
 
@@ -193,7 +194,7 @@ def load_matrix():
 
 
 
-'''if __name__ == '__main__':
+if __name__ == '__main__':
 
     num_processed_images = get_num_processed_images()
     print("Num Processed Images: {}".format(num_processed_images))
@@ -206,10 +207,10 @@ def load_matrix():
     #label_matrix = get_labels(1, midpoint_data[1], 341,256,20, 15)
     #print(label_matrix)
 
-    generate_label_matrix(midpoint_data,344,258,6,8,True,False)
+    generate_label_matrix(midpoint_data,400,300,20,20,True,False)
 
     time.sleep(3)
 
     label_matrix = load_matrix()
-    print(label_matrix)'''
+    #print(label_matrix)
 

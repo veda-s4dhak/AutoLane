@@ -12,10 +12,10 @@ from PIL import Image
 def initialize_rgb_array():
 
     # Initializing Screenshot Parameters
-    x1 = 1091
-    y1 = 397
-    x2 = 1435
-    y2 = 655
+    x1 = 1015
+    y1 = 326
+    x2 = 1417
+    y2 = 654
     image_width = int(x2 - x1)
     image_height = int(y2 - y1)
 
@@ -27,10 +27,10 @@ def initialize_rgb_array():
 def get_screen_capture(rgb,directory='',filename='',save=False,show_image=False):
 
     # Initializing Screenshot Parameters
-    x1 = 1091
-    y1 = 397
-    x2 = 1435
-    y2 = 655
+    x1 = 1017
+    y1 = 353
+    x2 = 1417
+    y2 = 653
     image_width = int(x2 - x1)
     image_height = int(y2 - y1)
 

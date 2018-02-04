@@ -15,12 +15,13 @@ image_num = 0
 global current_image
 
 global base_dir
-base_dir = r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\raw_dataset'
+base_dir = r'C:\\Users\\Veda Sadhak\\Desktop\\raw_dataset'
 
 global output_dir
-output_dir = r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\processed_dataset'
+output_dir = r'C:\\Users\\Veda Sadhak\\Desktop\\processed_dataset'
 
 global pix
+global raw_pix
 global pix_ready_flag
 
 pix_ready_flag = 1
@@ -42,6 +43,7 @@ def init_gui():
     current_image = r'\raw_0.png'
     rgb_image = Image.open(img_path).convert()
     image_w, image_l = rgb_image.size
+    print(image_w,image_l)
     gp_thread = get_pixels_thread(1)
     gp_thread.start()
 
@@ -50,12 +52,12 @@ def init_gui():
     global gui
     gui = tk.Tk()
     gui.resizable(width=False,height=False)
-    gui.geometry('{}x{}'.format(image_w+100,image_l+30))
+    gui.geometry('{}x{}'.format(image_w+115,image_l+30))
 
     # Initializing canvas
 
     global canvas
-    canvas = tk.Canvas(gui,width=image_w,height=image_l)
+    canvas = tk.Canvas(gui,width=image_w+20,height=image_l+20)
     canvas.place(x=10,y=10)
 
     global canvas_placeholder
@@ -66,16 +68,16 @@ def init_gui():
     # Initializing Buttons
 
     next_btn = tk.Button(gui,text="    Next   ",command=lambda:show_next_pic())
-    next_btn.place(x=image_w+25,y=20)
+    next_btn.place(x=image_w+35,y=20)
 
     previous_btn = tk.Button(gui, text="Previous", command=lambda:show_previous_pic())
-    previous_btn.place(x=image_w + 25, y=50)
+    previous_btn.place(x=image_w + 35, y=50)
 
     submit_btn = tk.Button(gui, text="  Submit ", command=lambda:submit_edited_pic())
-    submit_btn.place(x=image_w + 25, y=80)
+    submit_btn.place(x=image_w + 35, y=80)
 
     clear_btn = tk.Button(gui, text="   Clear   ", command=lambda:print("Clear button pressed"))
-    clear_btn.place(x=image_w + 25, y=110)
+    clear_btn.place(x=image_w + 35, y=110)
 
     canvas.bind("<Button 1>", mouse_click_event)
 
@@ -231,6 +233,7 @@ class get_pixels_thread(threading.Thread):
     def run(self):
 
         global pix
+        global raw_pix
         global pix_ready_flag
 
         pix_ready_flag = 0
@@ -244,6 +247,12 @@ class get_pixels_thread(threading.Thread):
             for y in range(0, image_l):
                 r, g, b = rgb_image.getpixel((x, y))
                 pix[x, y] = [r, g, b]
+
+        raw_pix = np.fliplr(pix)
+        raw_pix = np.rot90(raw_pix)
+        raw_img_path = output_dir + r'\raw_{}.png'.format(image_num)
+        smp.imsave(raw_img_path, raw_pix)
+        smp.imsave(raw_img_path, raw_pix)
 
         print('Completed getting pixels')
         pix_ready_flag = 1

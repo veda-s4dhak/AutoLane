@@ -27,7 +27,7 @@ import copy as cp
 
 import sys
 
-sys.path.insert(0, r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\v3\\Data_Set')
+sys.path.insert(0, r'C:\\Users\\Veda Sadhak\\Desktop\\LOL-Autolane\\v3\\Data_Set')
 
 import data_labeller as dlb
 import data_set as ds
@@ -57,10 +57,10 @@ class CNN_Model(object):
         self.test_dir = test_dir
 
         # Specifies image parameters
-        self.imageHeight = 258
-        self.imageWidth = 344
-        self.numPartsX = 8 #TODO check how big bounding boxes are in general
-        self.numPartsY = 6
+        self.imageHeight = 300
+        self.imageWidth = 400
+        self.numPartsX = 20 #TODO check how big bounding boxes are in general
+        self.numPartsY = 20
 
         self.images = tf.placeholder(tf.float32,[None,self.imageHeight,self.imageWidth,3],name='images')
         self.labels = tf.placeholder(tf.float32,[None,self.numPartsY,self.numPartsX,1],name='labels')
@@ -78,9 +78,11 @@ class CNN_Model(object):
         self.saver = tf.train.Saver()
         
         images =  ds.load_images()
+        print(len(images))
         label_matrix = dlb.load_matrix()
-        self.shuffled_images, self.shuffled_label_matrix = ds.prepareDataSet(images, label_matrix, 18, 18, 0)
-        
+        self.shuffled_images, self.shuffled_label_matrix = ds.prepareDataSet(images, label_matrix, 25,25, 0)
+        print(len(self.shuffled_images[0]))
+        print(len(self.shuffled_images[1]))
         self.shuffled_label_matrix[0] = cp.deepcopy(self.shuffled_label_matrix[0].reshape((-1, self.numPartsY, self.numPartsX, 1)))
         self.shuffled_label_matrix[1] = cp.deepcopy(self.shuffled_label_matrix[1].reshape((-1, self.numPartsY, self.numPartsX, 1)))
 
@@ -92,45 +94,45 @@ class CNN_Model(object):
     
         initializer = tf.contrib.layers.xavier_initializer_conv2d()
     
-        # Input is a 258 x 344 x 3 size image
+        # Input is a 300x400x3 size image
         x = tf.reshape(x, shape=[-1, self.imageHeight, self.imageWidth, 3])
     
         # Convolution Layer with 15 filters and a kernel size of 5
-        # Output: 340x254x15
+        # Output: 296x396x15
         conv1 = tf.layers.conv2d(x, 15, 5, activation=tf.keras.layers.LeakyReLU(0.01), kernel_initializer = initializer,
                                     bias_initializer = initializer)
     
         # Max Pooling (down-sampling) with strides of 2 and kernel size of 2
-        # Output: 127 x 170 x 15
+        # Output: 148x198x15
         conv1 = tf.layers.max_pooling2d(conv1, 2, 2)
     
         # Convolution Layer with 15 filters and a kernel size of 3
-        # Output: 125x168x15
+        # Output: 146x196x15
         conv2 = tf.layers.conv2d(conv1, 15, 3, activation=tf.keras.layers.LeakyReLU(0.01), kernel_initializer = initializer,
                                     bias_initializer = initializer)
     
         # Max Pooling (down-sampling) with strides of 2 and kernel size of 2
-        # Output: 62x15
+        # Output: 73x98
         conv2 = tf.layers.max_pooling2d(conv2, 2, 2)
     
     
-        # Output: 13x17x15
-        conv3 = tf.layers.conv2d(conv2, 15, (50, 68), activation=tf.keras.layers.LeakyReLU(0.01), kernel_initializer = initializer,
+        # Output: 41x41x15
+        conv3 = tf.layers.conv2d(conv2, 15, (33, 58), activation=tf.keras.layers.LeakyReLU(0.01), kernel_initializer = initializer,
                                     bias_initializer = initializer)
     
-        # Output: 6x8x15
+        # Output: 20x20x15
         conv3 = tf.layers.max_pooling2d(conv3, 2, 2)
     
         # Fully connected layers using conv layers
-        # Output: 6x8x1000
+        # Output: 20x20x1000
         conv4 = tf.layers.conv2d(conv3, 1000, 1, activation=None, kernel_initializer = initializer,
                                     bias_initializer = initializer)
     
-        # Output: 6x8x1000
+        # Output: 20x20x1000
         conv5 = tf.layers.conv2d(conv4, 1000, 1, activation=None, kernel_initializer = initializer,
                                     bias_initializer = initializer)
     
-        # Output: 6x8x1
+        # Output: 20x20x1
         conv6 = tf.layers.conv2d(conv5, 1, 1, activation = tf.sigmoid, kernel_initializer = initializer,
                                     bias_initializer = initializer)
     

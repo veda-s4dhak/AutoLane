@@ -1,2 +1,5 @@
-model_checkpoint_path: "CNN.model-500"
+model_checkpoint_path: "CNN.model-2000"
 all_model_checkpoint_paths: "CNN.model-500"
+all_model_checkpoint_paths: "CNN.model-1000"
+all_model_checkpoint_paths: "CNN.model-1500"
+all_model_checkpoint_paths: "CNN.model-2000"
