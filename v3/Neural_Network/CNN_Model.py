@@ -27,7 +27,7 @@ import copy as cp
 
 import sys
 
-sys.path.insert(0, r'C:\\Users\\Veda Sadhak\\Desktop\\LOL-Autolane\\v3\\Data_Set')
+sys.path.insert(0, r'C:\\Users\\HP_OWNER\\Desktop\\LOL-Autolane\\v3\\Data_Set')
 
 import data_labeller as dlb
 import data_set as ds
@@ -68,13 +68,24 @@ class CNN_Model(object):
         # Specifies training parameters
         self.epoch = 400
         self.batch_size = 3
-        self.learning_rate = 1e-5
+        self.learning_rate = 1e-6
         self.drop_prob = 0.25
 
         # Creates the model
         self.pred = self.conv_net()
+        
+        
+        eps = 1e-4
         # self.loss = -tf.reduce_mean(self.labels*tf.log(self.pred+1e-10) + (1-self.labels)*tf.log(1-(self.pred+1e-10)))/self.batch_size
-        self.loss = tf.reduce_mean(tf.square(self.labels - self.pred))
+        # self.loss = tf.reduce_mean(tf.square(self.labels - self.pred)  
+        '''self.comparison = tf.less( self.pred, tf.constant(eps) )    
+        self.ca_op = self.pred.assign( tf.where(self.comparison, (eps)*tf.ones_like(self.pred), self.pred ))
+        
+        self.comparison1 = tf.greater( self.ca_op, tf.constant(1-eps ))    
+        self.ca_op1 = self.pred.assign( tf.where(self.comparison1, 1-(eps)*tf.ones_like(self.ca_op), self.ca_op ))'''
+        
+        
+        self.loss = -tf.reduce_mean(50*self.labels*tf.log(self.pred+eps) + 1*(1-self.labels)*tf.log(1-(self.pred)+eps))
         self.saver = tf.train.Saver()
         
         images =  ds.load_images()
@@ -125,11 +136,11 @@ class CNN_Model(object):
     
         # Fully connected layers using conv layers
         # Output: 20x20x1000
-        conv4 = tf.layers.conv2d(conv3, 1000, 1, activation=None, kernel_initializer = initializer,
+        conv4 = tf.layers.conv2d(conv3, 2000, 1, activation=None, kernel_initializer = initializer,
                                     bias_initializer = initializer)
     
         # Output: 20x20x1000
-        conv5 = tf.layers.conv2d(conv4, 1000, 1, activation=None, kernel_initializer = initializer,
+        conv5 = tf.layers.conv2d(conv4, 2000, 1, activation=None, kernel_initializer = initializer,
                                     bias_initializer = initializer)
     
         # Output: 20x20x1
@@ -191,17 +202,20 @@ class CNN_Model(object):
                 # Run by batch images
                 
                 batch_idxs = np.shape(shuffled_images[0])[0]//self.batch_size # config.batch_size
-                print(batch_idxs)
+                #print(batch_idxs)
                 for idx in range(0, batch_idxs):
                     batch_images = shuffled_images[0][idx * self.batch_size : (idx + 1) * self.batch_size]
-                    print(np.shape(batch_images))
+                    #print(np.shape(batch_images))
                     batch_labels = shuffled_label_matrix[0][idx * self.batch_size : (idx + 1) * self.batch_size]
-                    print(np.shape(batch_labels))
+                    #print(np.shape(batch_labels))
                     counter += 1
-                    _, err = self.sess.run([self.train_op, self.loss], feed_dict={self.images: batch_images, self.labels: batch_labels})
+                    err, __, prd = self.sess.run([self.loss, self.train_op, self.pred], feed_dict={self.images: batch_images, self.labels: batch_labels})
+                    
+                
     
                     if counter % 10 == 0:
                         print("Epoch: ", (ep+1), " Step: ", counter, " Time: ", (time.time()-time_), " Loss: ", err)
+                        print("Prediction: ", prd)
                         #print(label_[1] - self.pred.eval({self.images: input_})[1],'loss:]',err)
                     if counter % 500 == 0:
                         self.save(config.checkpoint_dir, counter)
