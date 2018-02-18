@@ -83,7 +83,7 @@ if __name__=='__main__':
             # model.runRealTime(FLAGS)
             model.runRealTime(FLAGS)
             
-            for i in range(0,49):
+            for i in range(0,10):
                 result = model.pred.eval({model.images: np.expand_dims(model.shuffled_images[1][i], 0)})
                 print('Test Image: ', i)
                 print('Result:')
