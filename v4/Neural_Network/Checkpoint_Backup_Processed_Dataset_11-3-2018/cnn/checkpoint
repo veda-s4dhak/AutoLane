@@ -1,6 +1,0 @@
-model_checkpoint_path: "CNN.model-24000"
-all_model_checkpoint_paths: "CNN.model-22000"
-all_model_checkpoint_paths: "CNN.model-22500"
-all_model_checkpoint_paths: "CNN.model-23000"
-all_model_checkpoint_paths: "CNN.model-23500"
-all_model_checkpoint_paths: "CNN.model-24000"
